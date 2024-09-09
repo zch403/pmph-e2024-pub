@@ -24,7 +24,7 @@ let lss_redOp (pred2: i32 -> i32 -> bool)
     if (x_len == 0 || y_len == 0) then false 
     else pred2 x_last y_first 
 
-  let new_lss = if segments_connect then max (x_lcs+y_lis) (max y_lss x_lss)
+  let new_lss = if segments_connect then (max (x_lcs+y_lis) (max x_lss y_lss)) else  max x_lss y_lss
   let new_lis = if x_lss == x_len && segments_connect then x_lss+y_lis else x_lis
   let new_lcs = if y_lss == y_len && segments_connect then y_lss+x_lcs else y_lcs
   let new_len = x_len + y_len
