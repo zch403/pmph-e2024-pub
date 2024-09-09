@@ -86,14 +86,14 @@ int main(int argc, char** argv) {
     gpuAssert( cudaPeekAtLastError() );
 
     // copy result from ddevice to host
-    cudaMemcpy(h_out, d_in, mem_size, cudaMemcpyDeviceToHost);
+    cudaMemcpy(h_out, d_out, mem_size, cudaMemcpyDeviceToHost);
 
     // print result
 
     for(unsigned int i=0; i<N; ++i) {
         float actual   = h_out2[i];
         float expected = h_out[i]; 
-        if( actual-expected > 1 ) {
+        if( abs(actual-expected) < 0.1 ) {
             printf("Invalid result at index %d, actual: %f, expected: %f. \n", i, actual, expected);
             exit(3);
         }
