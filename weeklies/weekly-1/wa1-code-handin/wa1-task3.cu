@@ -8,7 +8,7 @@
 
 __global__ void funcKernel(float* X, float *Y) {
     const unsigned int gid = threadIdx.x;
-    Y[gid] = (X[gid]/(X[gid]-2.3))^3;
+    Y[gid] = pow((X[gid]/(X[gid]-2.3)), 3);
 }
 
 int main(int argc, char** argv) {
@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
       }
     }
 
-    int N = 753411;
+    N = 753411;
 
     // use the first CUDA device:
     cudaSetDevice(0);
@@ -56,7 +56,7 @@ int main(int argc, char** argv) {
 
         for(int n = 0; n < N; r++) {
             float tmp_n = (float)(n+1);
-            h_out2[n] = (tmp_n/(tmp_n-2.3))^3;
+            h_out2[n] = pow((tmp_n/(tmp_n-2.3)), 3);
         }
         gettimeofday(&t_end, NULL);
         timeval_subtract(&t_diff, &t_end, &t_start);
