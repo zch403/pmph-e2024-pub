@@ -68,11 +68,13 @@ int main(int argc, char** argv) {
     }
 
     { 
+        const int blockSize = 256;
+        const int blockCount = (N+blockSize-1)/blockSize;
         double elapsed; struct timeval t_start, t_end, t_diff;
         gettimeofday(&t_start, NULL);
 
         for(int r = 0; r < GPU_RUNS; r++) {
-            funcKernel<<< 1, N>>>(d_in, d_out);
+            funcKernel<<< blockCount, blockSize>>>(d_in, d_out);
         }
         cudaDeviceSynchronize();
         gettimeofday(&t_end, NULL);
