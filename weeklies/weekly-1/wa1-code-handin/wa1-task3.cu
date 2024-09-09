@@ -9,7 +9,7 @@
 #define GPU_RUNS 100
 
 __global__ void funcKernel(float* X, float *Y) {
-    const unsigned int gid = threadIdx.x;
+    const unsigned int gid = threadIdx.x+256*blockIdx;
     Y[gid] = pow((X[gid]/(X[gid]-2.3)), 3);
 }
 
