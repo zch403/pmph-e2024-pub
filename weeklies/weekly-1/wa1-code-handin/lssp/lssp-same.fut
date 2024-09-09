@@ -7,6 +7,20 @@
 -- output {
 --    5i32
 -- }
+--
+-- compiled input {
+--    [1i32, 1i32, 1i32, 1i32, 1i32, 1i32, 1i32, 1i32, 1i32, 1i32, 1i32, 1i32]
+-- }
+-- output {
+--    12i32
+-- }
+--
+-- compiled input {
+--    [0i32, 1i32, 1i32, 0i32, 1i32, 1i32, 1i32, 1i32, 1i32, 1i32, 1i32, 0i32]
+-- }
+-- output {
+--    7i32
+-- }
 
 import "lssp"
 import "lssp-seq"
