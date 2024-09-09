@@ -56,7 +56,7 @@ int main(int argc, char** argv) {
         double elapsed; struct timeval t_start, t_end, t_diff;
         gettimeofday(&t_start, NULL);
 
-        for(int n = 0; n < N; r++) {
+        for(int n = 0; n < N; n++) {
             float tmp_n = (float)(n+1);
             h_out2[n] = pow((tmp_n/(tmp_n-2.3)), 3);
         }
@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
         gettimeofday(&t_start, NULL);
 
         for(int r = 0; r < GPU_RUNS; r++) {
-            mul2Kernel<<< 1, N>>>(d_in, d_out);
+            funcKernel<<< 1, N>>>(d_in, d_out);
         }
         cudaDeviceSynchronize();
         gettimeofday(&t_end, NULL);
