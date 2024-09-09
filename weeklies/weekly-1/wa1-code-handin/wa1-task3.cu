@@ -4,6 +4,8 @@
 #include <math.h>
 #include <cuda_runtime.h>
 
+#include "helper.h"
+
 #define GPU_RUNS 100
 
 __global__ void funcKernel(float* X, float *Y) {
