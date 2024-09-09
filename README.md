@@ -1,7 +1,6 @@
 <!--
 # pmph-e2024-pub
 --PMPH course 2024-25 public repo
-Test
 -->
 
 # Programming Massively Parallel Hardware (PMPH), Block 1 2024
