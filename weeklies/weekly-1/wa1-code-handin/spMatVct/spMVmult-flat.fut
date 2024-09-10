@@ -109,7 +109,7 @@ let spMatVctMult [num_elms][vct_len][num_rows]
   let shp_sc = scan (+) 0 mat_shp
   -- TODO: fill in your implementation here.
   --       for now, the function simply returns zeroes.
-  let mat_flg = scatter (replicate shp_sc true) (scan (+) 0 mat_shp) (replicate num_rows false)
+  let mat_flg = scatter (replicate num_elms true) (scan (+) 0 mat_shp) (replicate num_rows false)
   let sc_mat = sgmScan (*) 1 mat_flg mat_val
   in map2 (\shp ip1 -> if shp==0 then 1 else sc_mat[ip1-1]) mat_shp shp_sc
 
