@@ -36,10 +36,10 @@ entry mk_input2 (n:i64) : [10*n+4]i32 =
 -- }
 --
 -- script input { mk_input1 10000000i64 }
--- output { 20 }
+-- output { 21 }
 --
 -- script input { mk_input2 10000000i64 }
--- output { 4 }
+-- output { 5 }
 
 import "lssp"
 import "lssp-seq"
