@@ -110,10 +110,10 @@ let spMatVctMult [num_elms][vct_len][num_rows]
   let shp_scn = scan (+) 0 shp_rot
   let shp_ind = map2 (\shp ind -> if shp==0 then -1 else ind) mat_shp shp_scn
   let mat_flg = scatter (replicate num_elms false) shp_ind (replicate num_rows true)
-  let tmp_mat = map (\(idx, v) -> v*vct[idx]) mat_val
-  let tmp_mat2 =  sgmSumF32 mat_flg tmp_mat
-  let indsp1 = scan (+) 0 mat_shp
-  in map2 (\shp ip1 -> if shp==0 then 0 else tmp_mat2[ip1-1]) mat_shp indsp1
+  let products = map (\(idx, v) -> v*vct[idx]) mat_val
+  let sum_products =  sgmSumF32 mat_flg products
+  let fst_elms = scan (+) 0 mat_shp
+  in map2 (\shp idx -> if shp==0 then 0 else sum_products[idx-1]) mat_shp fst_elms
 
   -- let last_idx = map (\x -> x - 1) (scan (+) 0 mat_shp)
   -- in map (\i -> tmp_mat2[i]) last_idx
