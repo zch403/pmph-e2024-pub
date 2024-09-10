@@ -36,10 +36,10 @@ entry mk_input2 (n:i64) : [10*n+4]i32 =
 -- }
 --
 -- script input { mk_input1 10000000i64 }
--- output { 21 }
+-- output { 20 }
 --
 -- script input { mk_input2 10000000i64 }
--- output { 5 }
+-- output { 4 }
 
 import "lssp"
 import "lssp-seq"
@@ -47,5 +47,5 @@ import "lssp-seq"
 let main (xs: []i32) : i32 =
   let pred1 _x = true
   let pred2 x y = (x == y)
-  --in  lssp_seq pred1 pred2 xs
-  in  lssp pred1 pred2 xs
+  in  lssp_seq pred1 pred2 xs
+  --in  lssp pred1 pred2 xs
