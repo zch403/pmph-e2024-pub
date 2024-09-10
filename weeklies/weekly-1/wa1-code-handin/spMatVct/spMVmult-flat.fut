@@ -116,7 +116,7 @@ let spMatVctMult [num_elms][vct_len][num_rows]
   let mat_flg = scatter (replicate num_elms false) shp_ind (replicate num_rows true)
   let tmp_mat = map (\(idx, v) -> v*vct[idx]) mat_val
   let tmp_mat2 = sgmSumF32 mat_flg tmp_mat
-  let last_idx = scan (+) (-1) mat_shp
+  let last_idx = map (\x -> x - 1) (scan (+) 0 mat_shp)
   in map (\i -> tmp_mat2[i]) last_idx
   -- let ind_last = map (\x -> x - 1) (scan (+) 0 mat_shp) -- Indices of last elements in each row
   -- in map (\i -> tmp_mat2[i]) ind_last
