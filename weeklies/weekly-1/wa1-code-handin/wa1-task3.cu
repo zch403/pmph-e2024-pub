@@ -23,7 +23,7 @@ int main(int argc, char** argv) {
       }
     }
 
-    N = 100000000;
+    N = 753411;
 
     // use the first CUDA device:
     cudaSetDevice(0);
