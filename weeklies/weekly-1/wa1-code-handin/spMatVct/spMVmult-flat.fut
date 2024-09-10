@@ -109,7 +109,16 @@ let spMatVctMult [num_elms][vct_len][num_rows]
   let shp_sc = scan (+) 0 mat_shp
   -- TODO: fill in your implementation here.
   --       for now, the function simply returns zeroes.
-   in replicate num_rows 0.0f32
+  let mat_flag = scatter (replicate shp_sc true) (scan (+) 0 mat_shp) (replicate num_rows false)
+  let sc_mat = sgmScan (*) 1 mat_flg mat_val
+  in map2 (\shp ip1 -> if shp==0 then 1 else sc_mat[ip1-1]) mat_shp shp_sc
+
+  -- let shp_sc = scan (+) 0 mat_shp
+  -- let mat_flg' = mkFlagArray mat_shp 0 (replicate num_rows true)
+  -- let mat_flg = mat_flg' :> [n]bool
+  -- let sc_mat = sgmScan (*) 1 mat_flg mat_val
+  -- let indsp1 = scan (+) 0 mat_shp
+  -- in map2 (\shp ip1 -> if shp==0 then 1 else sc_mat[ip1-1]) mat_shp indsp1
 
 -- One may run with for example:
 -- $ futhark dataset --i64-bounds=0:9999 -g [1000000]i64 --f32-bounds=-7.0:7.0 -g [1000000]f32 --i64-bounds=100:100 -g [10000]i64 --f32-bounds=-10.0:10.0 -g [10000]f32 | ./spMVmult-seq -t /dev/stderr -n
