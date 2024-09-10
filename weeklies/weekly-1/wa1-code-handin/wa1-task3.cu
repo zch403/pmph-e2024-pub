@@ -23,7 +23,7 @@ int main(int argc, char** argv) {
       }
     }
 
-    N = 1000000000;
+    N = 100000000;
 
     // use the first CUDA device:
     cudaSetDevice(0);
@@ -95,7 +95,7 @@ int main(int argc, char** argv) {
     for(unsigned int i=0; i<N; ++i) {
         float actual   = h_out2[i];
         float expected = h_out[i]; 
-        if( abs(actual)-abs(expected) > 0.1 ) {
+        if( abs(actual)-abs(expected) > 0.01 ) {
             printf("Invalid result at index %d, actual: %f, expected: %f. \n", i, actual, expected);
             exit(3);
         }
