@@ -9,7 +9,7 @@
 #define GPU_RUNS 100
 
 __global__ void funcKernel(float* X, float *Y) {
-    const unsigned int gid = threadIdx.x+256*blockIdx;
+    const unsigned int gid = threadIdx.x+256*blockIdx.x;
     Y[gid] = pow((X[gid]/(X[gid]-2.3)), 3);
 }
 
@@ -91,7 +91,7 @@ int main(int argc, char** argv) {
     cudaMemcpy(h_out, d_out, mem_size, cudaMemcpyDeviceToHost);
 
     // print result
-w
+
     for(unsigned int i=0; i<N; ++i) {
         float actual   = h_out2[i];
         float expected = h_out[i]; 
