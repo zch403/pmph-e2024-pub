@@ -100,14 +100,21 @@ let sgmSumF32 [n] (flags: [n]bool) (vals: [n]f32) : [n]f32 =
 ---    with a map that extracts the last element  ---
 ---    of the segment.
 -----------------------------------------------------
+let scanExl [n] 't
+            (op: t -> t -> t)
+            (ne: t)
+            (vals: [n]t)
+            : [n]t =
+  let nVals = map (\i -> if i==0 then ne else vals[i-1]) (iota n)
+  in scan op ne nVals
 
 let spMatVctMult [num_elms][vct_len][num_rows]
                  (mat_val: [num_elms](i64, f32))
                  (mat_shp: [num_rows]i64)
                  (vct: [vct_len]f32)
                    : [num_rows]f32 =
-  let shp_rot = map (\i -> if i==0 then 0 else mat_shp[i-1]) (iota num_rows)
-  let shp_scn = scan (+) 0 shp_rot
+  -- let shp_rot = map (\i -> if i==0 then 0 else mat_shp[i-1]) (iota num_rows)
+  let shp_scn = scanExl (+) 0 mat_shp
   let shp_ind = map2 (\shp ind -> if shp==0 then -1 else ind) mat_shp shp_scn
   let mat_flg = scatter (replicate num_elms false) shp_ind (replicate num_rows true)
   let products = map (\(idx, v) -> v*vct[idx]) mat_val
