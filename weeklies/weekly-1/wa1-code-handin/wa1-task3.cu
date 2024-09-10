@@ -95,7 +95,7 @@ int main(int argc, char** argv) {
     for(unsigned int i=0; i<N; ++i) {
         float actual   = h_out2[i];
         float expected = h_out[i]; 
-        if( abs(actual)-abs(expected) > 0.01 ) {
+        if( abs(actual)-abs(expected) > 0.001 ) {
             printf("Invalid result at index %d, actual: %f, expected: %f. \n", i, actual, expected);
             exit(3);
         }
