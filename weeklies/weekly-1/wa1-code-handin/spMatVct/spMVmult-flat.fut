@@ -116,10 +116,8 @@ let spMatVctMult [num_elms][vct_len][num_rows]
   let mat_flg = scatter (replicate num_elms false) shp_ind (replicate num_rows true)
   let tmp_mat = map (\(idx, v) -> v*vct[idx]) mat_val
   let tmp_mat2 = sgmSumF32 mat_flg tmp_mat
-  let last_idx = map (\x -> x - 1) (scan (+) 0 mat_shp)
+  let last_idx = (scan (+) (-1) mat_shp)
   in map (\i -> tmp_mat2[i]) last_idx
-  -- let ind_last = map (\x -> x - 1) (scan (+) 0 mat_shp) -- Indices of last elements in each row
-  -- in map (\i -> tmp_mat2[i]) ind_last
 
 -- One may run with for example:
 -- $ futhark dataset --i64-bounds=0:9999 -g [1000000]i64 --f32-bounds=-7.0:7.0 -g [1000000]f32 --i64-bounds=100:100 -g [10000]i64 --f32-bounds=-10.0:10.0 -g [10000]f32 | ./spMVmult-seq -t /dev/stderr -n
