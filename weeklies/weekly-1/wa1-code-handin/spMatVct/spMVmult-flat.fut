@@ -100,7 +100,7 @@ let sgmSumF32 [n] (flags: [n]bool) (vals: [n]f32) : [n]f32 =
 ---    with a map that extracts the last element  ---
 ---    of the segment.
 -----------------------------------------------------
-let scanExl [n] 't
+let exclusiveScan [n] 't
             (op: t -> t -> t)
             (ne: t)
             (vals: [n]t)
@@ -113,17 +113,13 @@ let spMatVctMult [num_elms][vct_len][num_rows]
                  (mat_shp: [num_rows]i64)
                  (vct: [vct_len]f32)
                    : [num_rows]f32 =
-  -- let shp_rot = map (\i -> if i==0 then 0 else mat_shp[i-1]) (iota num_rows)
-  let shp_scn = scanExl (+) 0 mat_shp
-  let shp_ind = map2 (\shp ind -> if shp==0 then -1 else ind) mat_shp shp_scn
+  let shp_exc_scn = exclusiveScan (+) 0 mat_shp
+  let shp_ind = map2 (\shp ind -> if shp==0 then -1 else ind) mat_shp shp_exc_scn
   let mat_flg = scatter (replicate num_elms false) shp_ind (replicate num_rows true)
   let products = map (\(idx, v) -> v*vct[idx]) mat_val
   let sum_products =  sgmSumF32 mat_flg products
-  let fst_elms = scan (+) 0 mat_shp
-  in map2 (\shp idx -> if shp==0 then 0 else sum_products[idx-1]) mat_shp fst_elms
-
-  -- let last_idx = map (\x -> x - 1) (scan (+) 0 mat_shp)
-  -- in map (\i -> tmp_mat2[i]) last_idx
+  let shp_inc_scn = scan (+) 0 mat_shp
+  in map2 (\shp idx -> if shp==0 then 0 else sum_products[idx-1]) mat_shp shp_inc_scn
 
 -- One may run with for example:
 -- $ futhark dataset --i64-bounds=0:9999 -g [1000000]i64 --f32-bounds=-7.0:7.0 -g [1000000]f32 --i64-bounds=100:100 -g [10000]i64 --f32-bounds=-10.0:10.0 -g [10000]f32 | ./spMVmult-seq -t /dev/stderr -n
