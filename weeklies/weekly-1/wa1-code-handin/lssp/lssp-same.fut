@@ -1,5 +1,11 @@
 -- Parallel Longest Satisfying Segment
 --
+entry mk_input (n:i64) : [20*n+10]i32 =
+   let pattern = [-100i32, 10, 3, -1, 4, -1, 5, 1, 1, -100]
+   let rep_pattern = replicate n pattern |> flatten
+   let longest_segment = replicate 20 4
+   in  (rep_pattern ++ longest_segment ++ rep_pattern) :> [20*n+10]i32
+--
 -- ==
 -- compiled input {
 --    [1i32, -2i32, -2i32, 0i32, 0i32, 0i32, 0i32, 0i32, 3i32, 4i32, -6i32, 1i32]
@@ -21,6 +27,9 @@
 -- output {
 --    7i32
 -- }
+--
+-- script input { mk_input 10000000i64 }
+-- output { 20 }
 
 import "lssp"
 import "lssp-seq"
