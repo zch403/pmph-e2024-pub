@@ -106,18 +106,17 @@ let spMatVctMult [num_elms][vct_len][num_rows]
                  (mat_shp: [num_rows]i64)
                  (vct: [vct_len]f32)
                    : [num_rows]f32 =
-
-  -- TODO: fill in your implementation here.
-  --       for now, the function simply returns zeroes.
-  
   let shp_rot = map (\i -> if i==0 then 0 else mat_shp[i-1]) (iota num_rows)
   let shp_scn = scan (+) 0 shp_rot
   let shp_ind = map2 (\shp ind -> if shp==0 then -1 else ind) mat_shp shp_scn
   let mat_flg = scatter (replicate num_elms false) shp_ind (replicate num_rows true)
   let tmp_mat = map (\(idx, v) -> v*vct[idx]) mat_val
-  let tmp_mat2 = sgmSumF32 mat_flg tmp_mat
-  let last_idx = map (\x -> x - 1) (scan (+) 0 mat_shp)
-  in map (\i -> tmp_mat2[i]) last_idx
+  let tmp_mat2 =  sgmSumF32 mat_flg tmp_mat
+  let indsp1 = scan (+) 0 mat_shp
+  in map2 (\shp ip1 -> if shp==0 then 0 else tmp_mat2[ip1-1]) mat_shp indsp1
+
+  -- let last_idx = map (\x -> x - 1) (scan (+) 0 mat_shp)
+  -- in map (\i -> tmp_mat2[i]) last_idx
 
 -- One may run with for example:
 -- $ futhark dataset --i64-bounds=0:9999 -g [1000000]i64 --f32-bounds=-7.0:7.0 -g [1000000]f32 --i64-bounds=100:100 -g [10000]i64 --f32-bounds=-10.0:10.0 -g [10000]f32 | ./spMVmult-seq -t /dev/stderr -n
