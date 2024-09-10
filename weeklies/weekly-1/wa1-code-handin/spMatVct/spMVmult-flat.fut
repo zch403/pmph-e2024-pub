@@ -100,22 +100,43 @@ let sgmSumF32 [n] (flags: [n]bool) (vals: [n]f32) : [n]f32 =
 ---    with a map that extracts the last element  ---
 ---    of the segment.
 -----------------------------------------------------
+
 let spMatVctMult [num_elms][vct_len][num_rows]
                  (mat_val: [num_elms](i64, f32))
                  (mat_shp: [num_rows]i64)
                  (vct: [vct_len]f32)
                    : [num_rows]f32 =
 
-  -- let shp_sc = scan (+) 0 mat_shp
+  -- -- Step 1: Create the flag array based on `mat_shp`
+  -- let shp_rot = map (\i -> if i==0 then 0 else mat_shp[i-1]) (iota num_rows)
+  -- let shp_scn = scan (+) 0 shp_rot
+
+  -- -- No need to calculate `aoa_len`, using `num_elms` directly for the flag array size.
+  -- let shp_ind = map2 (\shp ind -> if shp == 0 then -1 else ind) mat_shp shp_scn
+  -- let flags = scatter (replicate num_elms false) shp_ind (replicate num_rows true)
+
+  -- -- Step 2: Multiply each matrix element by the corresponding vector element
+  -- let prods = map (\(row_idx, value) -> value * vct[row_idx]) mat_val
+
+  -- -- Step 3: Perform a segmented sum across rows using the `flags`
+  -- let sums = sgmSumF32 flags (map (\(_, value) -> value) mat_val)
+
+  -- -- Step 4: Extract the last element of each row (which is the result of the row-wise sum)
+  -- let ind_last = map (\x -> x - 1) (scan (+) 0 mat_shp) -- Indices of last elements in each row
+  -- in map (\i -> sums[i]) ind_last
+
   -- TODO: fill in your implementation here.
   --       for now, the function simply returns zeroes.
-  let shp_scn = scanl (+) 0 mat_shp
-  let aoa_len = shp_scn[m-1]+mat_shp[m-1]
+  
+  let shp_rot = map (\i -> if i==0 then 0 else mat_shp[i-1]) (iota num_rows)
+  let shp_scn = scan (+) 0 shp_rot
+  --let aoa_len = shp_scn[num_rows-1]+mat_shp[num_rows-1]
   let shp_ind = map2 (\shp ind -> if shp==0 then -1 else ind) mat_shp shp_scn
-  let mat_flg = scatter (replicate aoa_len true) shp_ind (replicate num_rows false)
-
+  let mat_flg = scatter (replicate num_elms false) shp_ind (replicate num_rows true)
   let tmp_mat = map (\(idx, v) -> v*vct[idx]) mat_val
-  sgmSumF32 mat_flg tmp_mat
+  let tmp_mat2 = sgmSumF32 mat_flg tmp_mat
+  let ind_last = map (\x -> x - 1) (scan (+) 0 mat_shp) -- Indices of last elements in each row
+  in map (\i -> tmp_mat2[i]) ind_last
 
 -- One may run with for example:
 -- $ futhark dataset --i64-bounds=0:9999 -g [1000000]i64 --f32-bounds=-7.0:7.0 -g [1000000]f32 --i64-bounds=100:100 -g [10000]i64 --f32-bounds=-10.0:10.0 -g [10000]f32 | ./spMVmult-seq -t /dev/stderr -n
