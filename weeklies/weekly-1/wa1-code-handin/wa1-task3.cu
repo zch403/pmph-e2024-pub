@@ -6,7 +6,7 @@
 
 #include "helper.h"
 
-#define GPU_RUNS 100
+#define GPU_RUNS 300
 
 __global__ void funcKernel(float* X, float *Y) {
     const unsigned int gid = threadIdx.x+256*blockIdx.x;
