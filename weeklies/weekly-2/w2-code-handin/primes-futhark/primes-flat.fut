@@ -65,14 +65,12 @@ let primesFlat (n : i64) : []i64 =
                         |> sgmScan (+) 0 flags 
                         |> map (+1)
 
-      let primes      = scatter (replicate flat_size 0) 
+      let primes_sgm      = scatter (replicate flat_size 0) 
                                 exc_scan_ml 
                                 sq_primes 
                         |> sgmScan (\acc _ -> acc) 0 flags
 
-      let not_primes  = map2 (\nr p -> nr*p) 
-                             iota_sgm 
-                             primes
+      let not_primes  = map2 (*) iota_sgm primes_sgm
 
       -- If not_primes is correctly computed, then the remaining
       -- code is correct and will do the job of computing the prime
