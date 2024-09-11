@@ -55,11 +55,24 @@ let primesFlat (n : i64) : []i64 =
       --  where `p \in sq_primes`.
       -- Also note that `not_primes` has flat length equal to `flat_size`
       --  and the shape of `composite` is `mult_lens`. 
-      let exc_scan_ml = (exclusiveScan (+) 0 mult_lens) 
-      let flags = scatter (replicate flat_size false) exc_scan_ml (map (\_ -> true) exc_scan_ml)
-      let iota_sgm = replicate flat_size 1 |> sgmScan (+) 0 flags |> map (+1)
-      let primes = scatter (replicate flat_size 0) exc_scan_ml sq_primes |> sgmScan (\acc _ -> acc) 0 flags
-      let not_primes = map2 (\nr p -> nr*p) iota_sgm primes
+      let exc_scan_ml = exclusiveScan (+) 0 mult_lens
+
+      let flags       = scatter (replicate flat_size false) 
+                                exc_scan_ml 
+                                (map (\_ -> true) exc_scan_ml)
+
+      let iota_sgm    = replicate flat_size 1 
+                        |> sgmScan (+) 0 flags 
+                        |> map (+1)
+
+      let primes      = scatter (replicate flat_size 0) 
+                                exc_scan_ml 
+                                sq_primes 
+                        |> sgmScan (\acc _ -> acc) 0 flags
+
+      let not_primes  = map2 (\nr p -> nr*p) 
+                             iota_sgm 
+                             primes
 
       -- If not_primes is correctly computed, then the remaining
       -- code is correct and will do the job of computing the prime
