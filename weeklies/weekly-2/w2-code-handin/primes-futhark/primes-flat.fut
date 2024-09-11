@@ -33,7 +33,7 @@ let primesFlat (n : i64) : []i64 =
       -- but without running out of i64 bounds 
       let len = if n / len < len then n else len*len
 
-      let mult_lens = map (\ p -> (len / p) - 1 ) sq_primes
+      let mult_lens = map (\ p -> (len / p) - 1 ) sq_primes -- [14, 9, 5, 3]
       let flat_size = reduce (+) 0 mult_lens
 
       --------------------------------------------------------------
@@ -68,11 +68,11 @@ let primesFlat (n : i64) : []i64 =
 
       -- let nested = map (\p -> p) sq_primes
       -- let not_primes  = reduce (++) [] nested -- ignore, already flat
-      let escan_mult_lens = (exclusiveScan (+) 0 mult_lens)
-      let flags = scatter (replicate flat_size false) escan_mult_lens (map (\_ -> true) escan_mult_lens)
-      let tmp1 = replicate flat_size 0
-      let tmp2 = sgmScan (+) 0 flags tmp1
-      let tmp3 = map (+2) tmp2
+      let escan_mult_lens = (exclusiveScan (+) 0 mult_lens) -- [0, 14, 23, 28]
+      let flags = scatter (replicate flat_size false) escan_mult_lens (map (\_ -> true) escan_mult_lens) -- [true, false, ..., true(14), false, ..., true(23), false, ..., true(28), false, ... ]
+      let tmp1 = replicate flat_size 1 -- [1] length 31
+      let tmp2 = sgmScan (+) 0 flags tmp1 -- 
+      let tmp3 = map (+1) tmp2
       let tmp4 = scatter tmp1 escan_mult_lens mult_lens
       let tmp5 = sgmScan (\acc _ -> acc) 0 flags tmp4
       let not_primes = map2 (\nr p -> nr*p) tmp3 tmp5
