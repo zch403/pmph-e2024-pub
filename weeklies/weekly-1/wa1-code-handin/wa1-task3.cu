@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
     { 
         const int blockSize = 256;
         const int blockCount = (N+blockSize-1)/blockSize;
-        dim3 block(B,1,1), grid(numblocks,1,1);
+        dim3 block(blockSize,1,1), grid(numblocks,1,1);
         double elapsed; struct timeval t_start, t_end, t_diff;
         gettimeofday(&t_start, NULL);
 
