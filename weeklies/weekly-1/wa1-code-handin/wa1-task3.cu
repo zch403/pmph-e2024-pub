@@ -11,7 +11,8 @@
 __global__ void funcKernel(float* X, float *Y, int N) {
     const unsigned int gid = threadIdx.x+256*blockIdx.x;
     if (gid < N) { 
-        Y[gid] = pow((X[gid]/(X[gid]-2.3)), 3);
+        float tmp = X[gid]
+        Y[gid] = pow((tmp/(tmp-2.3)), 3);
     }
 }
 
