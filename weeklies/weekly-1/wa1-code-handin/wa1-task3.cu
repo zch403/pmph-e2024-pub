@@ -13,9 +13,7 @@ __global__ void funcKernel(float* X, float *Y, int N) {
     if (gid < N) { 
         float tmp = X[gid];
         float tmp2 = (tmp/(tmp-2.3));
-        Y[gid] = tmp2*tmp2*tmp2;
-    }
-}
+        Y[gid] = tmp2*tmp2*tmp2;}}
 
 int main(int argc, char** argv) {
     unsigned int N;
@@ -27,7 +25,7 @@ int main(int argc, char** argv) {
       }
     }
 
-    N = 1000000000;
+    N = 1400000000;
 
     // use the first CUDA device:
     cudaSetDevice(0);
