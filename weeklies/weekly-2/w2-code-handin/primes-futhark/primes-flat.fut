@@ -34,7 +34,7 @@ let primesFlat (n : i64) : []i64 =
       let len = if n / len < len then n else len*len
 
       let mult_lens = map (\ p -> (len / p) - 1 ) sq_primes -- [14, 9, 5, 3]
-      let flat_size = reduce (+) 0 mult_lens
+      let flat_size = reduce (+) 0 mult_lens -- 31
 
       --------------------------------------------------------------
       -- The current iteration knows the primes <= 'len', 
@@ -73,10 +73,10 @@ let primesFlat (n : i64) : []i64 =
       let tmp1 = replicate flat_size 1 -- [1] length 31
       let tmp2 = sgmScan (+) 0 flags tmp1 -- [1..14, 1..9, 1..5, 1..3]
       let tmp3 = map (+1) tmp2 -- [2..15, 2..10, 2..6, 2..4]
-      let tmp6 = replicate flat_size 0 -- [1] length 31
-      let tmp4 = scatter tmp6 escan_mult_lens mult_lens -- 
-      let tmp5 = sgmScan (\acc _ -> acc) 0 flags tmp4
-      let not_primes = map2 (\nr p -> nr*p) tmp3 tmp5
+      let tmp6 = replicate flat_size 0 -- [0] length 31
+      let tmp4 = scatter tmp6 escan_mult_lens sq_primes -- [2, 0, ..., 3, 0, ..., 5, 0, ..., 7, 0, ... ]
+      let tmp5 = sgmScan (\acc _ -> acc) 0 flags tmp4 -- [2, 2, ..., 3, 3, ..., 5, 5, ..., 7, 7, ... ]
+      let not_primes = map2 (\nr p -> nr*p) tmp3 tmp5 -- [4, 6, ..., 6, 9, ..., 10, 15, ..., 14, 21, ... ]
 
       -- If not_primes is correctly computed, then the remaining
       -- code is correct and will do the job of computing the prime
