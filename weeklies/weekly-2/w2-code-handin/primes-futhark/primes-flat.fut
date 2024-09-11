@@ -55,28 +55,9 @@ let primesFlat (n : i64) : []i64 =
       --  where `p \in sq_primes`.
       -- Also note that `not_primes` has flat length equal to `flat_size`
       --  and the shape of `composite` is `mult_lens`. 
-      
-      -- let sqrt_primes = primesOpt (sqrt (fromIntegral n)) 
-      -- let nested = map (\p ->
-      --   let m    = n / p           in
-      --   let mm1  = m - 1           in
-      --   let iot  = iota mm1        in
-      --   let twom = map (+2) iot    in
-      --   let rp   = replicate mm1 p in 
-      --   map (\(j,p) -> j*p) (zip twom rp)
-      --               ) sq_primes
-
-      -- let nested = map (\p -> p) sq_primes
-      -- let not_primes  = reduce (++) [] nested -- ignore, already flat
       let exc_scan_ml = (exclusiveScan (+) 0 mult_lens) 
       let flags = scatter (replicate flat_size false) exc_scan_ml (map (\_ -> true) exc_scan_ml)
-      -- let tmp1 = (replicate flat_size 1)
-      -- let tmp2 = sgmScan (+) 0 flags tmp1
-      -- let tmp3 = map (+1) tmp2 
       let iota_sgm = replicate flat_size 1 |> sgmScan (+) 0 flags |> map (+1)
-      -- let tmp6 = replicate flat_size 0 -- [0] length 31
-      -- let tmp4 = scatter tmp6 exc_scan_ml sq_primes 
-      -- let tmp5 = sgmScan (\acc _ -> acc) 0 flags tmp4 
       let primes = scatter (replicate flat_size 0) exc_scan_ml sq_primes |> sgmScan (\acc _ -> acc) 0 flags
       let not_primes = map2 (\nr p -> nr*p) iota_sgm primes
 
