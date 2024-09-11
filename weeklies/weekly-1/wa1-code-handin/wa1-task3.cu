@@ -77,7 +77,7 @@ int main(int argc, char** argv) {
         gettimeofday(&t_start, NULL);
 
         for(int r = 0; r < GPU_RUNS; r++) {
-            funcKernel<<< blockCount, blockSize>>>(d_in, d_out, N);
+            funcKernel<<<grid, block>>>(d_in, d_out, N);
         }
         cudaDeviceSynchronize();
         gettimeofday(&t_end, NULL);
