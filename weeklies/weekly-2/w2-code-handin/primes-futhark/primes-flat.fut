@@ -68,15 +68,17 @@ let primesFlat (n : i64) : []i64 =
 
       -- let nested = map (\p -> p) sq_primes
       -- let not_primes  = reduce (++) [] nested -- ignore, already flat
-      let escan_mult_lens = (exclusiveScan (+) 0 mult_lens) -- [0, 14, 23, 28]
-      let flags = scatter (replicate flat_size false) escan_mult_lens (map (\_ -> true) escan_mult_lens) -- [true, false, ..., true(14), false, ..., true(23), false, ..., true(28), false, ... ]
-      let tmp1 = replicate flat_size 1 -- [1] length 31
-      let tmp2 = sgmScan (+) 0 flags tmp1 -- [1..14, 1..9, 1..5, 1..3]
-      let tmp3 = map (+1) tmp2 -- [2..15, 2..10, 2..6, 2..4]
-      let tmp6 = replicate flat_size 0 -- [0] length 31
-      let tmp4 = scatter tmp6 escan_mult_lens sq_primes -- [2, 0, ..., 3, 0, ..., 5, 0, ..., 7, 0, ... ]
-      let tmp5 = sgmScan (\acc _ -> acc) 0 flags tmp4 -- [2, 2, ..., 3, 3, ..., 5, 5, ..., 7, 7, ... ]
-      let not_primes = map2 (\nr p -> nr*p) tmp3 tmp5 -- [4, 6, ..., 6, 9, ..., 10, 15, ..., 14, 21, ... ]
+      let exc_scan_ml = (exclusiveScan (+) 0 mult_lens) 
+      let flags = scatter (replicate flat_size false) exc_scan_ml (map (\_ -> true) exc_scan_ml)
+      -- let tmp1 = (replicate flat_size 1)
+      -- let tmp2 = sgmScan (+) 0 flags tmp1
+      -- let tmp3 = map (+1) tmp2 
+      let iota_sgm = replicate flat_size 1 |> sgmScan (+) 0 flags |> map (+1)
+      -- let tmp6 = replicate flat_size 0 -- [0] length 31
+      -- let tmp4 = scatter tmp6 exc_scan_ml sq_primes 
+      -- let tmp5 = sgmScan (\acc _ -> acc) 0 flags tmp4 
+      let primes = scatter (replicate flat_size 0) exc_scan_ml sq_primes |> sgmScan (\acc _ -> acc) 0 flags
+      let not_primes = map2 (\nr p -> nr*p) iota_sgm primes
 
       -- If not_primes is correctly computed, then the remaining
       -- code is correct and will do the job of computing the prime
