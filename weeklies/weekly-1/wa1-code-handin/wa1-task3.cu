@@ -8,9 +8,11 @@
 
 #define GPU_RUNS 300
 
-__global__ void funcKernel(float* X, float *Y) {
+__global__ void funcKernel(float* X, float *Y, int N) {
     const unsigned int gid = threadIdx.x+256*blockIdx.x;
-    Y[gid] = pow((X[gid]/(X[gid]-2.3)), 3);
+    if (gid < N) { 
+        Y[gid] = pow((X[gid]/(X[gid]-2.3)), 3);
+    }
 }
 
 int main(int argc, char** argv) {
@@ -70,11 +72,12 @@ int main(int argc, char** argv) {
     { 
         const int blockSize = 256;
         const int blockCount = (N+blockSize-1)/blockSize;
+        dim3 block(B,1,1), grid(numblocks,1,1);
         double elapsed; struct timeval t_start, t_end, t_diff;
         gettimeofday(&t_start, NULL);
 
         for(int r = 0; r < GPU_RUNS; r++) {
-            funcKernel<<< blockCount, blockSize>>>(d_in, d_out);
+            funcKernel<<< blockCount, blockSize>>>(d_in, d_out, N);
         }
         cudaDeviceSynchronize();
         gettimeofday(&t_end, NULL);
