@@ -19,13 +19,13 @@ int main(int argc, char** argv) {
     unsigned int N;
     
     { // reading the number of elements 
-      if (argc != 1) { 
-        printf("Num Args is: %d instead of 0. Exiting!\n", argc); 
+      if (argc != 2) { 
+        printf("Num Args is: %d instead of 1. Exiting!\n", argc); 
         exit(1);
       }
     }
 
-    N = 753411;
+    N = atoi(argv[1]);
 
     // use the first CUDA device:
     cudaSetDevice(0);
