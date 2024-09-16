@@ -8,7 +8,7 @@ CUDA_BLOCK_SIZE=256
 # Create or clear the output file
 OUTPUT_FILE="test_pbb_results.txt"
 echo "" > $OUTPUT_FILE
-
+make compile
 # Loop over the different values of N
 for N in "${N_VALUES[@]}"; do
     # Run the test and capture the output
