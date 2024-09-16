@@ -190,8 +190,8 @@ scanIncWarp( volatile typename OP::RedElTp* ptr, const unsigned int idx ) {
     // return OP::remVolatile(ptr[idx]);
     const unsigned int lane = idx & (WARP-1);
         
-    #pragma unroll
-    for( int d=0; d<lgWARP; d++) {
+    #pragma unroll;
+    for(int d=0; d<lgWARP; d++) {
         int h = 1 << d;
         if (lane >= h) {
             ptr[idx] = OP::apply(ptr[idx-h], ptr[idx]);
