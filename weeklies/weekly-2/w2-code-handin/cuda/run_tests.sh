@@ -22,7 +22,7 @@ for N in "${N_VALUES[@]}"; do
     grep "Reduce GPU Kernel runs in:" temp_output.txt | head -n 2 | tail -n 1 >> $OUTPUT_FILE
     grep "Reduce GPU Kernel runs in:" temp_output.txt | tail -n 2 | head -n 1 >> $OUTPUT_FILE
     grep "Scan Inclusive AddI32 GPU Kernel runs in:" temp_output.txt >> $OUTPUT_FILE
-    grep "SgmScan Inclusive AddI32 GPU Kernel runs in:" temp_output.txt >> $OUTPUT_FILE
+    #grep "SgmScan Inclusive AddI32 GPU Kernel runs in:" temp_output.txt >> $OUTPUT_FILE
 
     echo "" >> $OUTPUT_FILE
 done
