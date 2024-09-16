@@ -29,7 +29,7 @@ __global__ void
 select_last_in_sgm(int mat_rows, int* mat_shp_sc_d, float* tmp_scan, float* res_vct_d) {
     const unsigned int gid = threadIdx.x+256*blockIdx.x;
     if (gid < mat_rows) {
-        res_vct_d[gid] = tmp_scan[mat_shp_sc_d[gid]];
+        res_vct_d[gid] = tmp_scan[mat_shp_sc_d[gid]-1];
     }
 }
 
