@@ -218,7 +218,7 @@ __device__ inline typename OP::RedElTp
 scanIncBlock(volatile typename OP::RedElTp* ptr, const unsigned int idx) {
     const unsigned int lane   = idx & (WARP-1);
     const unsigned int warpid = idx >> lgWARP;
-
+    printf("%d") WARP
     // 1. perform scan at warp level. `scanIncWarp` computes its result in-place
     //    and also returns the per-thread result.
     typename OP::RedElTp res = scanIncWarp<OP>(ptr,idx);
