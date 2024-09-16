@@ -230,6 +230,7 @@ scanIncBlock(volatile typename OP::RedElTp* ptr, const unsigned int idx) {
     //   max block size = 32^2 = 1024
     if (lane == (WARP-1)) { ptr[warpid] = OP::remVolatile(ptr[idx]); }
     __threadfence_block();
+    __syncthreads();
 
     // 3. scan again the first warp.
     if (warpid == 0) { scanIncWarp<OP>(ptr, idx); }
