@@ -118,6 +118,7 @@ int testGenRed( const uint32_t        B     // desired CUDA block size ( <= 1024
                     cudaMemcpyDeviceToHost));
         if (!OP::equals(gpu_res, cpu_res)) {
             printf("INVALID, EXITING!!!\n");
+            OP::print(gpu_res);
             exit(1);
         }
         printf("Reduce: VALID result!\n\n");
