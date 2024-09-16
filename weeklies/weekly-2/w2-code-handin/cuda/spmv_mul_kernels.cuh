@@ -13,7 +13,7 @@ mkFlags(int mat_rows, int* mat_shp_sc_d, char* flags_d) {
 
 __global__ void
 mult_pairs(int* mat_inds, float* mat_vals, float* vct, int tot_size, float* tmp_pairs) {
-    for(int i=0; i<tot_size; i++) { tmp_pairs[i] = mat_vals[i]*vct[mat_inds[i]] }
+    for(int i=0; i<tot_size; i++) { tmp_pairs[i] = mat_vals[i]*vct[mat_inds[i]]; }
 }
 
 __global__ void
