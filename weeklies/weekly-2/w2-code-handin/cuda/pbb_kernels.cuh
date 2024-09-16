@@ -83,7 +83,7 @@ class LiftOP {
 
     static __device__ __host__ inline int
     printers(const RedElTp t) {
-        printf("%f") (t.f); 
+        printf("%A") (t.f); 
         return 1 + OP::printers(t.v);
     }
 };
