@@ -80,12 +80,6 @@ class LiftOP {
     equals(const RedElTp t1, const RedElTp t2) {
         return ( (t1.f == t2.f) && OP::equals(t1.v, t2.v) );
     }
-
-    static __device__ __host__ inline int
-    printers(const RedElTp t) {
-        printf("%A") (t.f); 
-        return 1 + OP::printers(t.v);
-    }
 };
 
 /*****************************************/
