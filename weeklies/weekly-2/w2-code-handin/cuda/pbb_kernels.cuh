@@ -232,9 +232,10 @@ scanIncBlock(volatile typename OP::RedElTp* ptr, const unsigned int idx) {
     __syncthreads();
 
     // 3. scan again the first warp.
-    if (warpid == 0) { scanIncWarp<OP>(ptr, idx); }
-    __threadfence_block();
-    __syncthreads();
+    if (warpid == 0) { 
+        scanIncWarp<OP>(ptr, idx); 
+        __syncthreads();
+    }
 
     // 4. accumulate results from previous step.
     if (warpid > 0) {
