@@ -456,7 +456,7 @@ copyFromGlb2ShrMem( const uint32_t glb_offs
     #pragma unroll
     for(uint32_t i=0; i<CHUNK; i++) {
         uint32_t loc_ind = threadIdx.x*CHUNK + i;
-        if (TASK1 == true) {
+        if (TASK2 == true) {
             loc_ind = blockDim.x*i + threadIdx.x;
         }
         uint32_t glb_ind = glb_offs + loc_ind;
@@ -489,7 +489,7 @@ copyFromShr2GlbMem( const uint32_t glb_offs
     #pragma unroll
     for (uint32_t i = 0; i < CHUNK; i++) {
         uint32_t loc_ind = threadIdx.x*CHUNK + i;
-        if TASK2 {
+        if (TASK2 == true) {
             loc_ind = blockDim.x*i + threadIdx.x;
         }
         uint32_t glb_ind = glb_offs + loc_ind;
