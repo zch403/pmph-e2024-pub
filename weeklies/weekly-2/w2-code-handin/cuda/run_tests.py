@@ -74,6 +74,18 @@ def write_to_csv(column_index):
             N = row["N"]
             existing_data[N] = row
 
+    # Map column index to specific test columns
+    column_mapping = {
+        1: [2, 6, 10, 12, 16, 20],  # When column_index is 1
+        2: [3, 7, 11, 13, 17, 21],  # When column_index is 2
+        3: [4, 8, 12, 14, 18, 22],  # When column_index is 3
+        4: [5, 9, 13, 15, 19, 23]   # When column_index is 4
+    }
+
+    # Ensure column_index is valid
+    if column_index not in column_mapping:
+        raise ValueError(f"Invalid column_index: {column_index}. Must be 1, 2, 3, or 4.")
+
     # Write updated data
     with open(csv_file, mode="w", newline="") as file:
         writer = csv.DictWriter(file, fieldnames=column_headers)
@@ -88,15 +100,12 @@ def write_to_csv(column_index):
                 row["N"] = N
 
             # Write results into the appropriate columns based on column_index
-            start_idx = 1 + (column_index - 1) * 4
+            column_indices = column_mapping[column_index]
             for i, avg in enumerate(avg_results):
-                # Ensure we are writing valid column names and values
-                if avg is not None and column_headers[start_idx + i] is not None:
-                    row[column_headers[start_idx + i]] = avg
+                if avg is not None:
+                    row[column_headers[column_indices[i]]] = avg
 
-            # Remove any keys with None values before writing the row
-            cleaned_row = {k: v for k, v in row.items() if k in column_headers and k is not None}
-            writer.writerow(cleaned_row)
+            writer.writerow(row)
 
 if __name__ == "__main__":
     column_index = int(sys.argv[1])  # Get column index (1, 2, 3, or 4) from command-line argument
