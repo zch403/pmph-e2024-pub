@@ -1,5 +1,5 @@
 #define TASK2 false
-#define TASK3 true
+#define TASK3 false
 
 #ifndef PBB_KERNELS
 #define PBB_KERNELS
@@ -184,23 +184,23 @@ __device__ inline typename OP::RedElTp
 scanIncWarp( volatile typename OP::RedElTp* ptr, const unsigned int idx ) {
     if (TASK3 == true) {
         const unsigned int lane = idx & (WARP-1);
-
-        if(lane==0) {
-            #pragma unroll
-            for(int i=1; i<WARP; i++) {
-                ptr[idx+i] = OP::apply(ptr[idx+i-1], ptr[idx+i]);
-            }
-        }
-        return OP::remVolatile(ptr[idx]);
-    }
-    else {
-        const unsigned int lane = idx & (WARP-1);
             
         #pragma unroll
         for(int d=0; d<lgWARP; d++) {
             int h = 1 << d;
             if (lane >= h) {
                 ptr[idx] = OP::apply(ptr[idx-h], ptr[idx]);
+            }
+        }
+        return OP::remVolatile(ptr[idx]);
+    }
+    else {
+        const unsigned int lane = idx & (WARP-1);
+
+        if(lane==0) {
+            #pragma unroll
+            for(int i=1; i<WARP; i++) {
+                ptr[idx+i] = OP::apply(ptr[idx+i-1], ptr[idx+i]);
             }
         }
         return OP::remVolatile(ptr[idx]);
