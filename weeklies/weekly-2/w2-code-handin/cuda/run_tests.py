@@ -36,7 +36,7 @@ def run_test(N):
 # Run the test 3 times for each N, averaging the GB/sec values
 def run_and_average(N):
     runs = []
-    for _ in range(3):
+    for _ in range(1):
         runs.append(run_test(N))
     # Average the values for each test, ignoring None values
     averages = []
@@ -45,10 +45,10 @@ def run_and_average(N):
         averages.append(sum(valid_results) / len(valid_results) if valid_results else None)
     return averages
 
-# Write to CSV with test1_1, test1_2, ..., test6_4 structure
-def write_to_csv():
+# Write to CSV with test1_1, test1_2, ..., test7_4 structure
+def write_to_csv(column_index):
     csv_file = "results.csv"
-    header = ["N"] + [f"test{i}_{j}" for i in range(1, 7) for j in range(1, 4)]  # 6 tests, 3 iterations
+    header = ["N"] + [f"test{i}_{j}" for i in range(1, 8) for j in range(1, 5)]  # 7 tests, 4 columns each
 
     # If the file doesn't exist, create it with the header
     if not os.path.exists(csv_file):
@@ -66,4 +66,5 @@ def write_to_csv():
             writer.writerow(row)
 
 if __name__ == "__main__":
-    write_to_csv()
+    column_index = int(sys.argv[1])  # Not using column index directly anymore as the structure is fixed
+    write_to_csv(column_index)
