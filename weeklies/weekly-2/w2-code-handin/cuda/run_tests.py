@@ -17,17 +17,6 @@ TEST_PATTERNS = [
     r"SgmScan Inclusive AddI32 GPU Kernel runs in:.*?GB/sec:\s+(\d+\.\d+)"  # SmgScan
 ]
 
-# Column headers corresponding to the patterns
-column_headers = [
-    "N", 
-    "NRedAdd", "NRedAdd_task2", "NRedAdd_task3", "NRedAdd_task2&3", 
-    "ORedAdd", "ORedAdd_task2", "ORedAdd_task3", "ORedAdd_task3&4",
-    "NRedMssp", "NRedMssp_task2", "NRedMssp_task3", "NRedMssp_task2&3", 
-    "ORedMssp", "ORedMssp_task2", "ORedMssp_task3", "ORedMssp_task2&3",
-    "Scan", "Scan_task2", "Scan_task3", "Scan_task2&3", 
-    "SmgScan", "SmgScan_task2", "SmgScan_task3", "SmgScan_task2&3"
-]
-
 # Extract GB/sec values for specific GPU tests
 def extract_gb_sec(output):
     gb_sec_values = []
@@ -59,12 +48,21 @@ def run_and_average(N):
 # Update the CSV file for the specified column (1, 2, 3, or 4)
 def write_to_csv(column_index):
     csv_file = "results.csv"
+    # Updated header to match the provided format
+    header = [
+        "N", "NRedAdd", "NRedAdd_task2", "NRedAdd_task3", "NRedAdd_task2&3",
+        "ORedAdd", "ORedAdd_task2", "ORedAdd_task3", "ORedAdd_task3&4",
+        "NRedMssp", "NRedMssp_task2", "NRedMssp_task3", "NRedMssp_task2&3",
+        "ORedMssp", "ORedMssp_task2", "ORedMssp_task3", "ORedMssp_task2&3",
+        "Scan", "Scan_task2", "Scan_task3", "Scan_task2&3",
+        "SmgScan", "SmgScan_task2", "SmgScan_task3", "SmgScan_task2&3"
+    ]
 
     # Create the CSV file if it doesn't exist
     if not os.path.exists(csv_file):
         with open(csv_file, mode="w", newline="") as file:
             writer = csv.writer(file)
-            writer.writerow(column_headers)
+            writer.writerow(header)
 
     # Read existing CSV file
     existing_data = {}
@@ -74,21 +72,9 @@ def write_to_csv(column_index):
             N = row["N"]
             existing_data[N] = row
 
-    # Map column index to specific test columns
-    column_mapping = {
-        1: [2, 6, 10, 12, 16, 20],  # When column_index is 1
-        2: [3, 7, 11, 13, 17, 21],  # When column_index is 2
-        3: [4, 8, 12, 14, 18, 22],  # When column_index is 3
-        4: [5, 9, 13, 15, 19, 23]   # When column_index is 4
-    }
-
-    # Ensure column_index is valid
-    if column_index not in column_mapping:
-        raise ValueError(f"Invalid column_index: {column_index}. Must be 1, 2, 3, or 4.")
-
     # Write updated data
     with open(csv_file, mode="w", newline="") as file:
-        writer = csv.DictWriter(file, fieldnames=column_headers)
+        writer = csv.DictWriter(file, fieldnames=header)
         writer.writeheader()
 
         for N in N_VALUES:
@@ -96,14 +82,24 @@ def write_to_csv(column_index):
             if N in existing_data:
                 row = existing_data[N]
             else:
-                row = {key: "" for key in column_headers}
+                row = {key: "" for key in header}
                 row["N"] = N
 
             # Write results into the appropriate columns based on column_index
-            column_indices = column_mapping[column_index]
+            # The pattern repeats every 4 columns for each test
+            test_mapping = {
+                1: ["NRedAdd", "ORedAdd", "NRedMssp", "ORedMssp", "Scan", "SmgScan"],
+                2: ["NRedAdd_task2", "ORedAdd_task2", "NRedMssp_task2", "ORedMssp_task2", "Scan_task2", "SmgScan_task2"],
+                3: ["NRedAdd_task3", "ORedAdd_task3", "NRedMssp_task3", "ORedMssp_task3", "Scan_task3", "SmgScan_task3"],
+                4: ["NRedAdd_task2&3", "ORedAdd_task3&4", "NRedMssp_task2&3", "ORedMssp_task2&3", "Scan_task2&3", "SmgScan_task2&3"]
+            }
+
+            columns = test_mapping[column_index]  # Get the right column set based on the index
+
+            # Ensure that values are written to the correct columns (1st, 2nd, etc., for each test)
             for i, avg in enumerate(avg_results):
                 if avg is not None:
-                    row[column_headers[column_indices[i]-1]] = avg
+                    row[columns[i]] = avg
 
             writer.writerow(row)
 
