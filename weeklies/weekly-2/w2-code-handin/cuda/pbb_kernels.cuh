@@ -1,4 +1,4 @@
-#define TASK2 false
+#define TASK2 true
 #define TASK3 true
 
 #ifndef PBB_KERNELS
