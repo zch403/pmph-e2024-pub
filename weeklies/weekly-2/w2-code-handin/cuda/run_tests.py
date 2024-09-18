@@ -7,26 +7,48 @@ import os
 # N values for the test
 N_VALUES = ["100000000", "50000000", "10000000", "5000000", "1000000", "500000", "100000", "50000", "10000"]
 
-# Extract GB/sec from the test output using regex
+# Define the GPU test patterns to extract specific GB/sec values
+TEST_PATTERNS = [
+    r"Naive Reduce with Int32 Addition Operator.*?Reduce GPU Kernel runs in:.*?GB/sec:\s+(\d+\.\d+)",  # Test1
+    r"Optimized Reduce with Int32 Addition Operator.*?Reduce GPU Kernel runs in:.*?GB/sec:\s+(\d+\.\d+)",  # Test2
+    r"Naive Reduce with MSSP Operator.*?Reduce GPU Kernel runs in:.*?GB/sec:\s+(\d+\.\d+)",  # Test3
+    r"Optimized Reduce with MSSP Operator.*?Reduce GPU Kernel runs in:.*?GB/sec:\s+(\d+\.\d+)",  # Test4
+    r"Scan Inclusive AddI32 GPU Kernel runs in:.*?GB/sec:\s+(\d+\.\d+)",  # Test5
+    r"SgmScan Inclusive AddI32 GPU Kernel runs in:.*?GB/sec:\s+(\d+\.\d+)"  # Test6
+]
+
+# Extract GB/sec values for specific GPU tests
 def extract_gb_sec(output):
-    return [float(match) for match in re.findall(r'GB/sec:\s+(\d+\.\d+)', output)]
+    gb_sec_values = []
+    for pattern in TEST_PATTERNS:
+        match = re.search(pattern, output, re.DOTALL)
+        if match:
+            gb_sec_values.append(float(match.group(1)))
+        else:
+            gb_sec_values.append(None)  # If the test result is not found, append None
+    return gb_sec_values
 
 # Run the test and return the extracted GB/sec values
 def run_test(N):
     result = subprocess.run(["./test_pbb", N, "256"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     return extract_gb_sec(result.stdout)
 
-# Run the test 5 times for each N, averaging the GB/sec values
+# Run the test 3 times for each N, averaging the GB/sec values
 def run_and_average(N):
     runs = []
-    for _ in range(5):
+    for _ in range(3):
         runs.append(run_test(N))
-    return [sum(x)/len(x) for x in zip(*runs)]
+    # Average the values for each test, ignoring None values
+    averages = []
+    for test_results in zip(*runs):
+        valid_results = [r for r in test_results if r is not None]
+        averages.append(sum(valid_results) / len(valid_results) if valid_results else None)
+    return averages
 
-# Write to CSV with an argument specifying which column to write to
-def write_to_csv(column_index):
+# Write to CSV with test1_1, test1_2, ..., test6_4 structure
+def write_to_csv():
     csv_file = "results.csv"
-    header = ["N"] + [f"GB/sec_{i+1}" for i in range(4)]  # 4 GB/sec columns
+    header = ["N"] + [f"test{i}_{j}" for i in range(1, 7) for j in range(1, 4)]  # 6 tests, 3 iterations
 
     # If the file doesn't exist, create it with the header
     if not os.path.exists(csv_file):
@@ -40,18 +62,8 @@ def write_to_csv(column_index):
         for N in N_VALUES:
             avg_results = run_and_average(N)
             # Prepare the row with N and the averaged GB/sec values
-            row = [N] + [""] * 4  # Initialize the row with empty GB/sec columns
-            row[column_index] = avg_results[column_index - 1]  # Fill the specific GB/sec column
+            row = [N] + avg_results
             writer.writerow(row)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: ./run_tests.py <column_index>")
-        sys.exit(1)
-
-    column_index = int(sys.argv[1])  # The column index (1 to 4) to write the GB/sec values to
-    if column_index < 1 or column_index > 4:
-        print("Invalid column index. Please choose a value between 1 and 4.")
-        sys.exit(1)
-
-    write_to_csv(column_index)
+    write_to_csv()
