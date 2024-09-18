@@ -45,26 +45,45 @@ def run_and_average(N):
         averages.append(sum(valid_results) / len(valid_results) if valid_results else None)
     return averages
 
-# Write to CSV with test1_1, test1_2, ..., test7_4 structure
+# Update the CSV file for the specified column (1, 2, 3, or 4)
 def write_to_csv(column_index):
     csv_file = "results.csv"
     header = ["N"] + [f"test{i}_{j}" for i in range(1, 8) for j in range(1, 5)]  # 7 tests, 4 columns each
 
-    # If the file doesn't exist, create it with the header
+    # Create the CSV file if it doesn't exist
     if not os.path.exists(csv_file):
         with open(csv_file, mode="w", newline="") as file:
             writer = csv.writer(file)
             writer.writerow(header)
 
-    # Open the CSV file and write the results
-    with open(csv_file, mode="a", newline="") as file:
-        writer = csv.writer(file)
+    # Read existing CSV file
+    existing_data = {}
+    with open(csv_file, mode="r", newline="") as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            N = row["N"]
+            existing_data[N] = row
+
+    # Write updated data
+    with open(csv_file, mode="w", newline="") as file:
+        writer = csv.DictWriter(file, fieldnames=header)
+        writer.writeheader()
+
         for N in N_VALUES:
             avg_results = run_and_average(N)
-            # Prepare the row with N and the averaged GB/sec values
-            row = [N] + avg_results
+            if N in existing_data:
+                row = existing_data[N]
+            else:
+                row = {key: "" for key in header}
+                row["N"] = N
+
+            # Write results into the appropriate columns based on column_index
+            for i, avg in enumerate(avg_results, start=1):
+                if avg is not None:
+                    row[f"test{i}_{column_index}"] = avg
+
             writer.writerow(row)
 
 if __name__ == "__main__":
-    column_index = int(sys.argv[1])  # Not using column index directly anymore as the structure is fixed
+    column_index = int(sys.argv[1])  # Get column index (1, 2, 3, or 4) from command-line argument
     write_to_csv(column_index)
