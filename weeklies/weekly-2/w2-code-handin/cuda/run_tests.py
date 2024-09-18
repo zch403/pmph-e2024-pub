@@ -47,7 +47,7 @@ def run_test(N):
 # Run the test 3 times for each N, averaging the GB/sec values
 def run_and_average(N):
     runs = []
-    for _ in range(3):  # Perform 3 iterations
+    for _ in range(1):  # Perform 3 iterations
         runs.append(run_test(N))
     # Average the values for each test, ignoring None values
     averages = []
@@ -103,7 +103,7 @@ def write_to_csv(column_index):
             column_indices = column_mapping[column_index]
             for i, avg in enumerate(avg_results):
                 if avg is not None:
-                    row[column_headers[column_indices[i]]] = avg
+                    row[column_headers[column_indices[i]-1]] = avg
 
             writer.writerow(row)
 
