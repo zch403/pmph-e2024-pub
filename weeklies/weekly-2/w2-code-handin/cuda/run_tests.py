@@ -13,7 +13,7 @@ def extract_gb_sec(output):
 
 # Run the test and return the extracted GB/sec values
 def run_test(N):
-    result = subprocess.run(["./test_pbb", N, "256"], capture_output=True, text=True)
+    result = subprocess.run(["./test_pbb", N, "256"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     return extract_gb_sec(result.stdout)
 
 # Run the test 5 times for each N, averaging the GB/sec values
