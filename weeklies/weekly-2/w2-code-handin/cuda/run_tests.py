@@ -5,7 +5,7 @@ import sys
 import os
 
 # N values for the test
-N_VALUES = ["100000000", "50000000", "10000000", "5000000", "1000000", "500000", "100000", "50000", "10000"]
+N_VALUES = ["10000", "20000", "30000", "40000", "50000", "60000", "70000", "80000", "90000"]
 
 # Define the GPU test patterns to extract specific GB/sec values
 TEST_PATTERNS = [
