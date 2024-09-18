@@ -90,10 +90,13 @@ def write_to_csv(column_index):
             # Write results into the appropriate columns based on column_index
             start_idx = 1 + (column_index - 1) * 4
             for i, avg in enumerate(avg_results):
-                if avg is not None:
+                # Ensure we are writing valid column names and values
+                if avg is not None and column_headers[start_idx + i] is not None:
                     row[column_headers[start_idx + i]] = avg
 
-            writer.writerow(row)
+            # Remove any keys with None values before writing the row
+            cleaned_row = {k: v for k, v in row.items() if k in column_headers and k is not None}
+            writer.writerow(cleaned_row)
 
 if __name__ == "__main__":
     column_index = int(sys.argv[1])  # Get column index (1, 2, 3, or 4) from command-line argument
