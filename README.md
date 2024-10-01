@@ -110,7 +110,7 @@ the lab sessions.
 | 04/09 | some time   | [**Assignment 1 handout**](weeklies/weekly-1/) | |
 | 09/09 | 13:00-15:00 | [Parallel Basic Block & Flattening Nested Parallelism (SFT)](slides/L2-Flatenning.pdf) | chapters 3 and 4 in [Lecture Notes](http://hjemmesider.diku.dk/~zgh600/Publications/lecture-notes-pmph.pdf) |
 | 09/09 | 15:00-17:00 | Lab: [Fun Quiz](slides/Lab-fun-quiz.pdf); | help with weekly |
-| 11/09 | 10:00-12:00 | [Flattening Nested Parallelism (SFT)](slides/L2-Flatenning.pdf) [In-Order Pipelines (HWD)](slides/L3-InOrderPipe.pdf)| Chapter 4 in Lecture Notes, Chapter 3 of "Parallel Computer Organization and Design" Book |
+| 11/09 | 10:00-12:00 | [In-Order Pipelines (HWD)](slides/L3-InOrderPipe.pdf)| Chapter 3 of "Parallel Computer Organization and Design" Book |
 | 11/09 | 13:00-15:00 | Lab: [Reduce and Scan in Cuda](slides/Lab2-RedScan.pdf) | discussing second weekly, helping with the first |
 | 11/09 | some time   | [**Assignment 2 handout**](weeklies/weekly-2/) | |
 | 16/09 | 13:00-15:00 | [In-Order Pipelines (HWD)](slides/L3-InOrderPipe.pdf), [Optimizing ILP, VLIW Architectures (SFT-HWD)](slides/L4-VLIW.pdf) | Chapter 3 of "Parallel Computer Organization and Design" Book |
@@ -120,23 +120,23 @@ the lab sessions.
 | 18/09 |  | No new weekly assignment this week; the third will be published next week | |
 | 23/09 | 13:00-15:00 | [Demonstrating Simple Techniques for Optimizing Locality](slides/L6-locality.pdf) | Chapter 5 and 6 of Lecture Notes |
 | 23/09 | 15:00-17:00 | [**Assignment 3+4 handout**](weeklies/weekly-3-4/) | helping with the weekly assignments. |
-| 25/09 | 10:00-12:00 | [Optimizing Locality same idea in other words: Nearest Neighbor, and again Matrix Multiplication and Transposition](slides/L5-LoopParI.pdf) | Chapters 5 and 6 of lecture Notes |
+| 25/09 | 10:00-12:00 | [Optimizing Locality Continuation](slides/L6-locality.pdf); [Optimizing Locality same idea in other words: Nearest Neighbor, and again Matrix Multiplication and Transposition](slides/L5-LoopParI.pdf) | Chapters 5 and 6 of lecture Notes |
 | 25/09 | 13:00-15:00 | Lab: discussing the third assignment | helping with the weekly assignments.
-| 30/09 | 13:00-15:00 | [Memory Hierarchy, Bus-Based Coherency Protocols (HWD)](slides/L7-MemIntro.pdf) | Chapter 4 and 5 of "Parallel Computer Organization and Design" Book |
+| 30/09 | 13:00-15:00 | helping with assignments | due to still not having my voice back
 | 30/09 | 15:00-17:00 | Lab: [**Presenting Possible Group Projects**](group-projects/) | discussing group projects, helping with weekly assignments |
-| 02/10 | 10:00-12:00 | HWD: [Scalable Coherence Protocols](slides/L8-Interconnect.pdf) | Chapters 5 and 6 of "Parallel Computer Organization and Design" Book |
+| 02/10 | 10:00-12:00 | [Memory Hierarchy, Bus-Based Coherency Protocols (HWD)](slides/L7-MemIntro.pdf) | Chapter 4 and 5 of "Parallel Computer Organization and Design" Book |
 | 02/10 | 13:00-15:00 | Lab: [**Presenting Possible Group Projects**](group-projects/) | helping with weekly assignments, discussing group projects.
-| 07/10 | 13:00-15:00 | HWD: [Scalable Coherence Protocols, Scalable Interconect (HWD)](slides/L8-Interconnect.pdf) [Exercises](hwd-exercises/hwd-coherence-in-exercises.pdf)| Chapters 5 and 6 of "Parallel Computer Organization and Design" Book |
+| 07/10 | 13:00-15:00 | HWD: [Scalable Coherence Protocols](slides/L8-Interconnect.pdf) | Chapters 5 and 6 of "Parallel Computer Organization and Design" Book |
 | 07/10 | 15:00-17:00 | Lab: helping with weekly assignments and project |  |
-| 09/10 | 10:00-12:00 | [Demonstrating by Exercises the Coherency Protocols and Interconnect material](hwd-exercises/hwd-coherence-in-exercises.pdf) | |
+| 09/10 | 10:00-12:00 | HWD: [Scalable Coherence Protocols, Scalable Interconect (HWD)](slides/L8-Interconnect.pdf) [Exercises](hwd-exercises/hwd-coherence-in-exercises.pdf)| Chapters 5 and 6 of "Parallel Computer Organization and Design" Book |
 | 09/10 | 13:00-15:00 | | helping with weeklies and project
 | 14/10 | 13:00-15:00 | Autumn break (no lecture) | |
 | 14/10 | 15:00-17:00 | Autumn break (no lab) | |
 | 16/10 | 10:00-12:00 | Autumn break (no lecture) | |
 | 16/10 | 13:00-15:00 | Autumn break (no lab) |
-| 21/10 | 13:00-15:00 | No lecture | Upon request, may show up and help with group project/weeklies |
+| 21/10 | 13:00-15:00 | [Demonstrating by Exercises the Coherency Protocols and Interconnect material](hwd-exercises/hwd-coherence-in-exercises.pdf) | |
 | 21/10 | 15:00-17:00 | Lab: Helping with group project and weeklies | |
-| 23/10 | 10:00-12:00 | [Inspector-Executor Techniques for Locality Optimizations (SFT)](slides/L8-LocOfRef.pdf) | [Various scientific papers](material/Opt-Loc-Ref) |
+| 23/10 | 10:00-12:00 | [Inspector-Executor Techniques for Locality Optimizations (SFT)](slides/L8-LocOfRef.pdf) | [Various scientific papers](facultative-material/Opt-Loc-Ref) |
 | 23/10 | 13:00-15:00 | Lab: help with group project, weeklies |
 | 28/10 | 13:00-15:00 | Lecture: helping with group project and weeklies | you may read Tomasulo Algorithm (HWD) from Chapter 3 of "Parallel Computer Organization and Design" Book; [also on slides](slides/L9-OoOproc.pdf) |
 | 28/10 | 15:00-17:00 | Lab: Helping with group project, weeklies | |
@@ -185,7 +185,7 @@ decision).
 * [Assignment text](weeklies/weekly-2/assignment2.asciidoc)
 * [Code handout](weeklies/weekly-2/w2-code-handin.tar.gz)
 
-### Weekly 3+4 (due October 6th) -- this is a bigger assignment counting as two assignments
+### Weekly 3+4 (due October 7th) -- this is a bigger assignment counting as two assignments
 
 * [Assignment text](weeklies/weekly-3-4/assignment3-4.asciidoc)
 * [Code handout](weeklies/weekly-3-4/w3-code-handin.tar.gz)
@@ -197,14 +197,13 @@ Several potential choices for group project may be found in folder `group-projec
 
 * **You are free to propose your own project, for example from the machine learning field, but please discuss it first with Cosmin, to make sure it is a relevant project, i.e., on which you can apply some of the techniques/reasoning that we have studied in PMPH.**
 * [Single Pass Scan in Cuda (basic block of parallel programming)](group-projects/single-pass-scan)
-* [GPU Implementation of Linear Recurrences](group-projects/linear-rec)
 * [Futhark or Cuda implementation for the Rank-K Search Problem](group-projects/rank-search-k)
 * [Fast Sorting Algorithm(s) for GPUs](group-projects/sorting-on-gpu)
 * [Bfast: a landscape change detection algorithm (Remote Sensing)](group-projects/bfast)
 * [Local Volatility Calibration  (Finance)](group-projects/loc-vol-calib)
 * [HP Implementation for Fusing Tensor Contractions (Deep Learning)](group-projects/tensor-contraction): read the paper, implement the technique (some initial code is provided), and try to replicate the results of the paper. Or you can also try to implement a matrix multiplication for 16-bit floats that uses the tensor-core support.
 
-[Here you can find the CUB library and a simple program that utilizes CUB to sort](group-projects/cub-code)
+[Here you can find the CUB library and a simple program that utilizes CUB to sort](group-projects/cub-code-radixsort)
 
 ## GPU + MultiCore Machines
 
