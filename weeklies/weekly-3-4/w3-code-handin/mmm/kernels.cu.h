@@ -101,13 +101,10 @@ __global__ void mmmSymBlkRegInnSeqKer(ElTp* A, ElTp* B, ElTp* C, int heightA, in
       for(int i=0; i<Ry; i++) {
         unsigned int row = iii + threadIdx.y*Ry + i;
         unsigned int col = kk + threadIdx.x;
-        if ((row < heightA) && (col < widthA)){
-          Aloc[threadIdx.y*Ry+i][threadIdx.x] = A[row*widthA+col];
-        } else {
-          Aloc[threadIdx.y*Ry+i][threadIdx.x] = 0;
-        }
-      }
-
+        if ((row < heightA) && (col < widthA)) {
+          Aloc[threadIdx.y*Ry+i][threadIdx.x] = A[row*widthA+col];} 
+        else {
+          Aloc[threadIdx.y*Ry+i][threadIdx.x] = 0;}}
 
       /***************************************
        * Subtask 3.1.2:
@@ -136,22 +133,13 @@ __global__ void mmmSymBlkRegInnSeqKer(ElTp* A, ElTp* B, ElTp* C, int heightA, in
        *      (see definitiona at the begining of kernels).
        **************************************************************/
       // Please implement Task 3.1.2 here
-      // for(int i=0; i<Rx; i++)
-      //   unsigned int row = kk + threadIdx.x
-      //   unsigned int col = jjj + threadIdx.x*Rx + j
-      //   if ((row < widthB) && (col < widthA))
-      //     Bloc[threadIdx.x][threadIdx.x*Rx + j] = B[row*widthA+col]
-      //   else 
-      //     Bloc[threadIdx.x][threadIdx.x*Rx + j] = 0
       for(int j=0; j<Rx; j++) {
-        unsigned int row = kk + threadIdx.x;
+        unsigned int row = kk + threadIdx.y;
         unsigned int col = jjj + threadIdx.x*Rx + j;
-        if ((row < widthB) && (col < widthA)) {
-          Bloc[threadIdx.x][threadIdx.x*Rx + j] = B[row*widthA+col];
-        } else {
-          Bloc[threadIdx.x][threadIdx.x*Rx + j] = 0;
-        }
-      }
+        if ((row < widthA) && (col < widthB)) {
+          Bloc[threadIdx.y][threadIdx.x*Rx + j] = B[row*widthB+col];} 
+        else {
+          Bloc[threadIdx.y][threadIdx.x*Rx + j] = 0;}}
       __syncthreads();
 
       // compute the per-thread result css:
@@ -170,9 +158,16 @@ __global__ void mmmSymBlkRegInnSeqKer(ElTp* A, ElTp* B, ElTp* C, int heightA, in
                  * This assumes of course that you have 
                  *   already solved Task 3.1.
                  ***************************************/
+                  // if( (iii + threadIdx.y*Ry + i < heightA) &&
+                  //     (kk+k < widthA) &&
+                  //     (jjj + threadIdx.x*Rx + j < widthB)
+                  //   )
+                  // css[i][j] +=  
+                  //   A[ (iii + threadIdx.y*Ry + i)*widthA + (kk + k)] *
+                  //   B[ (kk+k)*widthB + jjj + threadIdx.x*Rx + j] ;
                   css[i][j] +=  
                     Aloc[threadIdx.y*Ry + i][k] *
-                    Bloc[k][threadIdx.x*Rx + j];
+                    Bloc[k][threadIdx.x*Rx + j] ;
               }
           }
       }
