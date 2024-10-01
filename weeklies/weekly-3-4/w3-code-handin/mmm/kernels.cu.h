@@ -101,10 +101,12 @@ __global__ void mmmSymBlkRegInnSeqKer(ElTp* A, ElTp* B, ElTp* C, int heightA, in
       for(int i=0; i<Ry; i++)
         unsigned int row = iii + threadIdx.y*Ry + i;
         unsigned int col = kk + threadIdx.x;
-        if ((row < heightA) && (col < widthA))
+        if ((row < heightA) && (col < widthA)){
           Aloc[threadIdx.y*Ry+i][threadIdx.x] = A[row*widthA+col];
-        else 
+        } else {
           Aloc[threadIdx.y*Ry+i][threadIdx.x] = 0;
+        }
+
 
       /***************************************
        * Subtask 3.1.2:
@@ -143,10 +145,11 @@ __global__ void mmmSymBlkRegInnSeqKer(ElTp* A, ElTp* B, ElTp* C, int heightA, in
       for(int i=0; i<Rx; i++)
         unsigned int row = kk + threadIdx.x;
         unsigned int col = jjj + threadIdx.x*Rx + j;
-        if ((row < widthA) && (col < widthB))
+        if ((row < widthA) && (col < widthB)) {
           Bloc[threadIdx.x][threadIdx.x*Rx + j] = B[row*widthB+col];
-        else 
+        } else {
           Bloc[threadIdx.x][threadIdx.x*Rx + j] = 0;
+        }
       __syncthreads();
 
       // compute the per-thread result css:
