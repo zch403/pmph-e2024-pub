@@ -2,7 +2,7 @@
 # Script to run test_pbb with different values of N, extract running time and throughput
 
 # Define the values for N
-N_VALUES=("100003565" "10000000"  "1000000"   "100000")
+N_VALUES=("100000000"  "50000000" "10000000"  "5000000"  "1000000"  "500000"   "100000"  "50000"  "10000")
 CUDA_BLOCK_SIZE=256
 
 # Create or clear the output file

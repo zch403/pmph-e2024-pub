@@ -1,0 +1,152 @@
+Before:
+Results for N = 100003565
+Naive Memcpy GPU Kernel runs in: 737 microsecs, GB/sec: 1085.52
+Reduce GPU Kernel runs in: 1290 microsecs, GB/sec: 310.09
+Reduce GPU Kernel runs in: 391 microsecs, GB/sec: 1023.05
+Reduce GPU Kernel runs in: 3610 microsecs, GB/sec: 110.81
+Scan Inclusive AddI32 GPU Kernel runs in: 4555 microsecs, GB/sec: 263.46
+SgmScan Inclusive AddI32 GPU Kernel runs in: 3058 microsecs, GB/sec: 457.83
+SgmScan Inclusive AddI32 GPU Kernel runs in: 3058 microsecs, GB/sec: 457.83
+
+Results for N = 10000000
+Naive Memcpy GPU Kernel runs in: 71 microsecs, GB/sec: 1126.76
+Reduce GPU Kernel runs in: 231 microsecs, GB/sec: 173.16
+Reduce GPU Kernel runs in: 53 microsecs, GB/sec: 754.72
+Reduce GPU Kernel runs in: 561 microsecs, GB/sec: 71.30
+Scan Inclusive AddI32 GPU Kernel runs in: 626 microsecs, GB/sec: 191.69
+SgmScan Inclusive AddI32 GPU Kernel runs in: 542 microsecs, GB/sec: 258.30
+SgmScan Inclusive AddI32 GPU Kernel runs in: 542 microsecs, GB/sec: 258.30
+
+Results for N = 1000000
+Naive Memcpy GPU Kernel runs in: 7 microsecs, GB/sec: 1142.86
+Reduce GPU Kernel runs in: 88 microsecs, GB/sec: 45.45
+Reduce GPU Kernel runs in: 10 microsecs, GB/sec: 400.00
+Reduce GPU Kernel runs in: 90 microsecs, GB/sec: 44.44
+Scan Inclusive AddI32 GPU Kernel runs in: 60 microsecs, GB/sec: 200.00
+SgmScan Inclusive AddI32 GPU Kernel runs in: 52 microsecs, GB/sec: 269.23
+SgmScan Inclusive AddI32 GPU Kernel runs in: 52 microsecs, GB/sec: 269.23
+
+Results for N = 10000
+Naive Memcpy GPU Kernel runs in: 4 microsecs, GB/sec: 20.00
+Reduce GPU Kernel runs in: 64 microsecs, GB/sec: 0.62
+Reduce GPU Kernel runs in: 9 microsecs, GB/sec: 4.44
+Reduce GPU Kernel runs in: 63 microsecs, GB/sec: 0.63
+Scan Inclusive AddI32 GPU Kernel runs in: 35 microsecs, GB/sec: 3.43
+SgmScan Inclusive AddI32 GPU Kernel runs in: 31 microsecs, GB/sec: 4.52
+SgmScan Inclusive AddI32 GPU Kernel runs in: 31 microsecs, GB/sec: 4.52
+
+
+TASK 2:
+Results for N = 100003565
+Naive Memcpy GPU Kernel runs in: 738 microsecs, GB/sec: 1084.05
+Reduce GPU Kernel runs in: 1220 microsecs, GB/sec: 327.88
+Reduce GPU Kernel runs in: 407 microsecs, GB/sec: 982.84
+Reduce GPU Kernel runs in: 3602 microsecs, GB/sec: 111.05
+Scan Inclusive AddI32 GPU Kernel runs in: 4425 microsecs, GB/sec: 271.20
+SgmScan Inclusive AddI32 GPU Kernel runs in: 3057 microsecs, GB/sec: 457.98
+SgmScan Inclusive AddI32 GPU Kernel runs in: 3057 microsecs, GB/sec: 457.98
+
+Results for N = 10000000
+Naive Memcpy GPU Kernel runs in: 62 microsecs, GB/sec: 1290.32
+Reduce GPU Kernel runs in: 178 microsecs, GB/sec: 224.72
+Reduce GPU Kernel runs in: 43 microsecs, GB/sec: 930.23
+Reduce GPU Kernel runs in: 490 microsecs, GB/sec: 81.63
+Scan Inclusive AddI32 GPU Kernel runs in: 360 microsecs, GB/sec: 333.33
+SgmScan Inclusive AddI32 GPU Kernel runs in: 326 microsecs, GB/sec: 429.45
+SgmScan Inclusive AddI32 GPU Kernel runs in: 326 microsecs, GB/sec: 429.45
+
+Results for N = 1000000
+Naive Memcpy GPU Kernel runs in: 10 microsecs, GB/sec: 800.00
+Reduce GPU Kernel runs in: 102 microsecs, GB/sec: 39.22
+Reduce GPU Kernel runs in: 15 microsecs, GB/sec: 266.67
+Reduce GPU Kernel runs in: 128 microsecs, GB/sec: 31.25
+Scan Inclusive AddI32 GPU Kernel runs in: 87 microsecs, GB/sec: 137.93
+SgmScan Inclusive AddI32 GPU Kernel runs in: 75 microsecs, GB/sec: 186.67
+SgmScan Inclusive AddI32 GPU Kernel runs in: 75 microsecs, GB/sec: 186.67
+
+Results for N = 10000
+Naive Memcpy GPU Kernel runs in: 4 microsecs, GB/sec: 20.00
+Reduce GPU Kernel runs in: 64 microsecs, GB/sec: 0.62
+Reduce GPU Kernel runs in: 9 microsecs, GB/sec: 4.44
+Reduce GPU Kernel runs in: 63 microsecs, GB/sec: 0.63
+Scan Inclusive AddI32 GPU Kernel runs in: 36 microsecs, GB/sec: 3.33
+SgmScan Inclusive AddI32 GPU Kernel runs in: 32 microsecs, GB/sec: 4.38
+SgmScan Inclusive AddI32 GPU Kernel runs in: 32 microsecs, GB/sec: 4.38
+
+
+TASK 3:
+Results for N = 100003565
+Naive Memcpy GPU Kernel runs in: 738 microsecs, GB/sec: 1084.05
+Reduce GPU Kernel runs in: 1294 microsecs, GB/sec: 309.13
+Reduce GPU Kernel runs in: 390 microsecs, GB/sec: 1025.68
+Reduce GPU Kernel runs in: 3612 microsecs, GB/sec: 110.75
+Scan Inclusive AddI32 GPU Kernel runs in: 4481 microsecs, GB/sec: 267.81
+SgmScan Inclusive AddI32 GPU Kernel runs in: 3058 microsecs, GB/sec: 457.83
+SgmScan Inclusive AddI32 GPU Kernel runs in: 3058 microsecs, GB/sec: 457.83
+
+Results for N = 10000000
+Naive Memcpy GPU Kernel runs in: 71 microsecs, GB/sec: 1126.76
+Reduce GPU Kernel runs in: 231 microsecs, GB/sec: 173.16
+Reduce GPU Kernel runs in: 53 microsecs, GB/sec: 754.72
+Reduce GPU Kernel runs in: 537 microsecs, GB/sec: 74.49
+Scan Inclusive AddI32 GPU Kernel runs in: 503 microsecs, GB/sec: 238.57
+SgmScan Inclusive AddI32 GPU Kernel runs in: 441 microsecs, GB/sec: 317.46
+SgmScan Inclusive AddI32 GPU Kernel runs in: 441 microsecs, GB/sec: 317.46
+
+Results for N = 1000000
+Naive Memcpy GPU Kernel runs in: 7 microsecs, GB/sec: 1142.86
+Reduce GPU Kernel runs in: 90 microsecs, GB/sec: 44.44
+Reduce GPU Kernel runs in: 11 microsecs, GB/sec: 363.64
+Reduce GPU Kernel runs in: 93 microsecs, GB/sec: 43.01
+Scan Inclusive AddI32 GPU Kernel runs in: 63 microsecs, GB/sec: 190.48
+SgmScan Inclusive AddI32 GPU Kernel runs in: 54 microsecs, GB/sec: 259.26
+SgmScan Inclusive AddI32 GPU Kernel runs in: 54 microsecs, GB/sec: 259.26
+
+Results for N = 10000
+Naive Memcpy GPU Kernel runs in: 4 microsecs, GB/sec: 20.00
+Reduce GPU Kernel runs in: 62 microsecs, GB/sec: 0.65
+Reduce GPU Kernel runs in: 9 microsecs, GB/sec: 4.44
+Reduce GPU Kernel runs in: 62 microsecs, GB/sec: 0.65
+Scan Inclusive AddI32 GPU Kernel runs in: 35 microsecs, GB/sec: 3.43
+SgmScan Inclusive AddI32 GPU Kernel runs in: 35 microsecs, GB/sec: 4.00
+SgmScan Inclusive AddI32 GPU Kernel runs in: 35 microsecs, GB/sec: 4.00
+
+
+TASK 2 & 3:
+Results for N = 100003565
+Naive Memcpy GPU Kernel runs in: 637 microsecs, GB/sec: 1255.93
+Reduce GPU Kernel runs in: 1213 microsecs, GB/sec: 329.77
+Reduce GPU Kernel runs in: 390 microsecs, GB/sec: 1025.68
+Reduce GPU Kernel runs in: 3612 microsecs, GB/sec: 110.75
+Scan Inclusive AddI32 GPU Kernel runs in: 4275 microsecs, GB/sec: 280.71
+SgmScan Inclusive AddI32 GPU Kernel runs in: 3059 microsecs, GB/sec: 457.68
+SgmScan Inclusive AddI32 GPU Kernel runs in: 3059 microsecs, GB/sec: 457.68
+
+Results for N = 10000000
+Naive Memcpy GPU Kernel runs in: 79 microsecs, GB/sec: 1012.66
+Reduce GPU Kernel runs in: 254 microsecs, GB/sec: 157.48
+Reduce GPU Kernel runs in: 58 microsecs, GB/sec: 689.66
+Reduce GPU Kernel runs in: 580 microsecs, GB/sec: 68.97
+Scan Inclusive AddI32 GPU Kernel runs in: 626 microsecs, GB/sec: 191.69
+SgmScan Inclusive AddI32 GPU Kernel runs in: 511 microsecs, GB/sec: 273.97
+SgmScan Inclusive AddI32 GPU Kernel runs in: 511 microsecs, GB/sec: 273.97
+
+Results for N = 1000000
+Naive Memcpy GPU Kernel runs in: 7 microsecs, GB/sec: 1142.86
+Reduce GPU Kernel runs in: 78 microsecs, GB/sec: 51.28
+Reduce GPU Kernel runs in: 12 microsecs, GB/sec: 333.33
+Reduce GPU Kernel runs in: 98 microsecs, GB/sec: 40.82
+Scan Inclusive AddI32 GPU Kernel runs in: 66 microsecs, GB/sec: 181.82
+SgmScan Inclusive AddI32 GPU Kernel runs in: 57 microsecs, GB/sec: 245.61
+SgmScan Inclusive AddI32 GPU Kernel runs in: 57 microsecs, GB/sec: 245.61
+
+Results for N = 10000
+Naive Memcpy GPU Kernel runs in: 4 microsecs, GB/sec: 20.00
+Reduce GPU Kernel runs in: 63 microsecs, GB/sec: 0.63
+Reduce GPU Kernel runs in: 10 microsecs, GB/sec: 4.00
+Reduce GPU Kernel runs in: 65 microsecs, GB/sec: 0.62
+Scan Inclusive AddI32 GPU Kernel runs in: 42 microsecs, GB/sec: 2.86
+SgmScan Inclusive AddI32 GPU Kernel runs in: 37 microsecs, GB/sec: 3.78
+SgmScan Inclusive AddI32 GPU Kernel runs in: 37 microsecs, GB/sec: 3.78
+
+
