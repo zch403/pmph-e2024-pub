@@ -133,11 +133,18 @@ __global__ void mmmSymBlkRegInnSeqKer(ElTp* A, ElTp* B, ElTp* C, int heightA, in
        *      (see definitiona at the begining of kernels).
        **************************************************************/
       // Please implement Task 3.1.2 here
+      // for(int i=0; i<Rx; i++)
+      //   unsigned int row = kk + threadIdx.x
+      //   unsigned int col = jjj + threadIdx.x*Rx + j
+      //   if ((row < widthB) && (col < widthA))
+      //     Bloc[threadIdx.x][threadIdx.x*Rx + j] = B[row*widthA+col]
+      //   else 
+      //     Bloc[threadIdx.x][threadIdx.x*Rx + j] = 0
       for(int i=0; i<Rx; i++)
         unsigned int row = kk + threadIdx.x
         unsigned int col = jjj + threadIdx.x*Rx + j
-        if ((row < widthB) && (col < widthA))
-          Bloc[threadIdx.x][threadIdx.x*Rx + j] = B[row*widthA+col]
+        if ((row < widthA) && (col < widthB))
+          Bloc[threadIdx.x][threadIdx.x*Rx + j] = B[row*widthB+col]
         else 
           Bloc[threadIdx.x][threadIdx.x*Rx + j] = 0
       __syncthreads();
