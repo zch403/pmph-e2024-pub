@@ -133,16 +133,17 @@ __global__ void mmmSymBlkRegInnSeqKer(ElTp* A, ElTp* B, ElTp* C, int heightA, in
        *      (see definitiona at the begining of kernels).
        **************************************************************/
       // Please implement Task 3.1.2 here
-      for (int j = 0; j < Rx; j++) {
-        unsigned int row = kk + threadIdx.y * Rx + j;  // Ensure contiguous row access by threads
-        unsigned int col = jjj + threadIdx.x;          // Ensure contiguous col access
+      for(int j=0; j<Rx; j++) {
+        unsigned int row = kk + threadIdx.y;
+        // unsigned int col = jjj + threadIdx.x*Rx + j;
+        // (Tx-1)*Rx+Rx-1=(Tx)*(Rx-1)+Tx-1
+        // (1+Tx)*(Rx-1)+(Tx-1)=
+        unsigned int col = jjj + Tx*j+threadIdx.x;
 
         if ((row < widthA) && (col < widthB)) {
-            Bloc[threadIdx.y * Rx + j][threadIdx.x] = B[row * widthB + col];
-        } else {
-            Bloc[threadIdx.y * Rx + j][threadIdx.x] = 0;
-        }
-      }
+          Bloc[threadIdx.y][Tx*j+threadIdx.x;] = B[row*widthB+col];} 
+        else {
+          Bloc[threadIdx.y][Tx*j+threadIdx.x;] = 0;}}
       __syncthreads();
 
       // compute the per-thread result css:
