@@ -141,9 +141,9 @@ __global__ void mmmSymBlkRegInnSeqKer(ElTp* A, ElTp* B, ElTp* C, int heightA, in
         unsigned int col = jjj + Tx*j+threadIdx.x;
 
         if ((row < widthA) && (col < widthB)) {
-          Bloc[threadIdx.y][Tx*j+threadIdx.x;] = B[row*widthB+col];} 
+          Bloc[threadIdx.y][Tx*j+threadIdx.x] = B[row*widthB+col];} 
         else {
-          Bloc[threadIdx.y][Tx*j+threadIdx.x;] = 0;}}
+          Bloc[threadIdx.y][Tx*j+threadIdx.x] = 0;}}
       __syncthreads();
 
       // compute the per-thread result css:
