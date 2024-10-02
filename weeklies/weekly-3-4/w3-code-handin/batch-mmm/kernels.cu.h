@@ -103,11 +103,13 @@ void bmmmTiledKer ( ElTp* A,      ElTp* B, char* X_tr,   ElTp* Y
     float ab = A[j1*N+q] * B[q*K+j2];
     char x = (flat_thid<T && i<M) ? X_tr[q*M+i] : 0;
     Xsh_tr[flat_thid] = x;
+    __syncthreads();
     #pragma unroll
     for(int i_r=0; i<T; i_r++) {
       float v = (Xsh_tr[i_r]!=0) ? 1.0f : 0.0f;
       acc[i_r] += ab * v;
     }
+    __syncthreads();
   }
   for(int i_r = 0; i_r<T; i_r++) {
     if(ii+i_r<M) {
