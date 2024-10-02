@@ -138,5 +138,6 @@ void bmmmTiledKer ( ElTp* A,      ElTp* B, char* X_tr,   ElTp* Y
     if(i+i_r<M) {
       Y[(i+i_r)*K*K+j1*K+j2] = acc[i_r];
     }
+  }
 }
 #endif
