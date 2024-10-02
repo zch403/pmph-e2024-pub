@@ -174,10 +174,8 @@ __global__ void mmmSymBlkRegInnSeqKer(ElTp* A, ElTp* B, ElTp* C, int heightA, in
                   //   A[ (iii + threadIdx.y*Ry + i)*widthA + (kk + k)] *
                   //   B[ (kk+k)*widthB + jjj + threadIdx.x*Rx + j] ;
                   css[i][j] +=  
-                    Aloc[i*Ty + threadIdx.y][k] *
-                    Bloc[k][Tx*j+threadIdx.x];
-                    // Aloc[threadIdx.y*Ry + i][k] *
-                    // Bloc[k][threadIdx.x*Rx + j] ;
+                    Aloc[threadIdx.y*Ry + i][k] *
+                    Bloc[k][threadIdx.x*Rx + j] ;
               }
           }
       }
