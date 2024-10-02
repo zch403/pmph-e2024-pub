@@ -118,7 +118,7 @@ void bmmmTiledKer ( ElTp* A,      ElTp* B, char* X_tr,   ElTp* Y
   // }
   // Loop over the tiles of X_tr, loading them into shared memory
   for(int q = 0; q < N; q++) {
-
+    float ab = A[j1 * N + q] * B[q * K + j2];
     // Copy a tile of X_tr into shared memory using a subset of threads
     int index_X_tr = q * M + i + flat_thid;
     
@@ -129,9 +129,6 @@ void bmmmTiledKer ( ElTp* A,      ElTp* B, char* X_tr,   ElTp* Y
       Xsh_tr[flat_thid] = 0.0f;  // Out-of-bounds threads load 0
     }
     __syncthreads();  // Synchronize before using shared memory
-
-
-    float ab = A[j1 * N + q] * B[q * K + j2];
 
     // Compute partial results for this thread
     #pragma unroll
