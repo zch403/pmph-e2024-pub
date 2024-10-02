@@ -99,12 +99,16 @@ __global__ void mmmSymBlkRegInnSeqKer(ElTp* A, ElTp* B, ElTp* C, int heightA, in
       
       // Please implement Task 3.1.1 here
       for(int i=0; i<Ry; i++) {
-        unsigned int row = iii + threadIdx.y*Ry + i;
+        // unsigned int row = iii + threadIdx.y*Ry + i;
+        unsigned int row = iii + i*Ty + threadIdx.y;
         unsigned int col = kk + threadIdx.x;
         if ((row < heightA) && (col < widthA)) {
-          Aloc[threadIdx.y*Ry+i][threadIdx.x] = A[row*widthA+col];} 
+          // Aloc[threadIdx.y*Ry+i][threadIdx.x] = A[row*widthA+col];} 
+          Aloc[i*Ty + threadIdx.y][threadIdx.x] = A[row*widthA+col];} 
         else {
-          Aloc[threadIdx.y*Ry+i][threadIdx.x] = 0;}}
+          // Aloc[threadIdx.y*Ry+i][threadIdx.x] = 0;}}
+          Aloc[i*Ty + threadIdx.y][threadIdx.x] = 0;}}
+
 
       /***************************************
        * Subtask 3.1.2:
