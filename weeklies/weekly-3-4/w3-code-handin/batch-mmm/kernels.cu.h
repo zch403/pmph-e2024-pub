@@ -99,41 +99,18 @@ void bmmmTiledKer ( ElTp* A,      ElTp* B, char* X_tr,   ElTp* Y
    * Remember to flatten the indices to all arrays
    * hold in global memory, i.e., A, B, X_tr, Y.
    ***********************************************/
-  // for(int q=0; q<N; q++) {
-  //   float ab = A[j1*N+q] * B[q*K+j2];
-  //   char x = (flat_thid<T && i<M) ? X_tr[q*M+i+flat_thid] : 0;
-  //   Xsh_tr[flat_thid] = x;
-  //   __syncthreads();
-  //   #pragma unroll
-  //   for(int i_r=0; i<T; i_r++) {
-  //     float v = (Xsh_tr[i_r]!=0) ? 1.0f : 0.0f;
-  //     acc[i_r] += ab * v;
-  //   }
-  //   __syncthreads();
-  // }
-  // for(int i_r = 0; i_r<T; i_r++) {
-  //   if(ii+i_r<M) {
-  //     Y[(ii+i_r)*K*K+j1*K+j2] = acc[i_r];
-  //   }
-  // }
-  // Loop over the tiles of X_tr, loading them into shared memory
   for(int q=0; q<N; q++) {
-    float ab = A[j1*N + q] * B[q*K + j2];
-    char x = (flat_thid<T && i<M) ? X_tr[q*M + i + flat_thid] : 0;
+    float ab = A[j1*N+q] * B[q*K+j2];
+    char x = (flat_thid<T && i<M) ? X_tr[q*M+i+flat_thid] : 0;
     Xsh_tr[flat_thid] = x;
-    __syncthreads();  // Synchronize before using shared memory
-
-    // Compute partial results for this thread
+    __syncthreads();
     #pragma unroll
-    for(int i_r=0; i_r<T; i_r++) {
+    for(int i_r=0; i<T; i_r++) {
       float v = (Xsh_tr[i_r]!=0) ? 1.0f : 0.0f;
       acc[i_r] += ab * v;
     }
-    __syncthreads();  // Synchronize before the next tile load
+    __syncthreads();
   }
-
-  // Write accumulated results to Y
-  #pragma unroll
   for(int i_r = 0; i_r<T; i_r++) {
     if(i+i_r<M) {
       Y[(i+i_r)*K*K+j1*K+j2] = acc[i_r];
