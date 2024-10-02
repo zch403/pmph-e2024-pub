@@ -99,13 +99,13 @@ void bmmmTiledKer ( ElTp* A,      ElTp* B, char* X_tr,   ElTp* Y
    * Remember to flatten the indices to all arrays
    * hold in global memory, i.e., A, B, X_tr, Y.
    ***********************************************/
-  for(int q=0; q<N; q++) {
+  for(int q=0; q<N; q++) { 
     float ab = A[j1*N+q] * B[q*K+j2];
     char x = (flat_thid<T && i<M) ? X_tr[q*M+i+flat_thid] : 0;
     Xsh_tr[flat_thid] = x;
     __syncthreads();
     #pragma unroll
-    for(int i_r=0; i<T; i_r++) {
+    for(int i_r=0; i_r<T; i_r++) {
       float v = (Xsh_tr[i_r]!=0) ? 1.0f : 0.0f;
       acc[i_r] += ab * v;
     }
