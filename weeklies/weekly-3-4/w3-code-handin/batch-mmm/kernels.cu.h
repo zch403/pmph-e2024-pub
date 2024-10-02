@@ -125,7 +125,7 @@ void bmmmTiledKer ( ElTp* A,      ElTp* B, char* X_tr,   ElTp* Y
 
     // Compute partial results for this thread
     #pragma unroll
-    for(int t=0; t<T; t++) {
+    for(int i_r=0; i_r<T; i_r++) {
       float v = (Xsh_tr[i_r]!=0) ? 1.0f : 0.0f;
       acc[i_r] += ab * v;
     }
