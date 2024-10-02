@@ -120,14 +120,13 @@ void bmmmTiledKer ( ElTp* A,      ElTp* B, char* X_tr,   ElTp* Y
   for(int q = 0; q < N; q++) {
 
     // Copy a tile of X_tr into shared memory using a subset of threads
-    int tid = threadIdx.y * K + threadIdx.x;
-    int index_X_tr = q * M + i + tid;
+    int index_X_tr = q * M + i + flat_thid;
     
     // Ensure we don't access out-of-bounds elements
-    if (tid < T && i + tid < M) {
-      Xsh_tr[tid] = X_tr[index_X_tr];
+    if (flat_thid < T && i + flat_thid < M) {
+      Xsh_tr[flat_thid] = X_tr[index_X_tr];
     } else {
-      Xsh_tr[tid] = 0.0f;  // Out-of-bounds threads load 0
+      Xsh_tr[flat_thid] = 0.0f;  // Out-of-bounds threads load 0
     }
     __syncthreads();  // Synchronize before using shared memory
 
