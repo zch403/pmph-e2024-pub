@@ -134,8 +134,8 @@ __global__ void mmmSymBlkRegInnSeqKer(ElTp* A, ElTp* B, ElTp* C, int heightA, in
        **************************************************************/
       // Please implement Task 3.1.2 here
       for(int j=0; j<Rx; j++) {
-        unsigned int row = kk + threadIdx.y * Rx + j;
-        unsigned int col = jjj + threadIdx.x;
+        unsigned int row = kk + threadIdx.y;
+        unsigned int col = jjj + threadIdx.x*Rx + j;
         if ((row < widthA) && (col < widthB)) {
           Bloc[threadIdx.y][threadIdx.x*Rx + j] = B[row*widthB+col];} 
         else {
