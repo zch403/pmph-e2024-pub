@@ -100,7 +100,7 @@ void bmmmTiledKer ( ElTp* A,      ElTp* B, char* X_tr,   ElTp* Y
    * hold in global memory, i.e., A, B, X_tr, Y.
    ***********************************************/
   for(int q=0; q<N; q++) { 
-    float ab = A[q*K+j1] * B[q*K+j2];
+    float ab = A[j1*N+q] * B[q*K+j2];
     char x = (flat_thid<T && i<M) ? X_tr[q*M+i+flat_thid] : 0;
     Xsh_tr[flat_thid] = x;
     __syncthreads();
